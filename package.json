@@ -12,6 +12,7 @@
     "bulma": "0.9.0",
     "bulma-fluent": "^0.3.25",
     "bulma-slider": "^2.0.4",
+    "colyseus.js": "^0.13.1",
     "core-js": "^3.6.5",
     "logicjs": "^1.0.0",
     "vue": "^2.6.11",
@@ -50,7 +51,9 @@
     },
     "rules": {
       "no-case-declarations": "off",
-      "prefer-spread": "off"
+      "prefer-spread": "off",
+      "no-this-alias": "off",
+      "no-explicit-any": "off"
     }
   },
   "browserslist": [

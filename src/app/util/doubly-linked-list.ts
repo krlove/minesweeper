@@ -1,3 +1,13 @@
+export class Node<T> {
+    value: T;
+    next?: Node<T>;
+    prev?: Node<T>;
+
+    constructor(value: T) {
+        this.value = value;
+    }
+}
+
 export class DoublyLinkedList<T> {
     private size = 0;
     private head?: Node<T>;
@@ -15,8 +25,9 @@ export class DoublyLinkedList<T> {
             this.tail = node;
             this.linkTailAndHead();
         } else {
-            // @ts-ignore
-            this.tail.next = node;
+            if (this.tail !== undefined) {
+                this.tail.next = node;
+            }
             node.prev = this.tail;
             this.tail = node;
             this.linkTailAndHead();
@@ -65,15 +76,5 @@ export class DoublyLinkedList<T> {
         }
         this.tail.next = this.head;
         this.head.prev = this.tail;
-    }
-}
-
-export class Node<T> {
-    value: T;
-    next?: Node<T>;
-    prev?: Node<T>;
-
-    constructor(value: T) {
-        this.value = value;
     }
 }

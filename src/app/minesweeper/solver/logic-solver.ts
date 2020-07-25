@@ -5,6 +5,33 @@ import * as logic from "logicjs/logic";
 import Action from "@/app/minesweeper/solver/action";
 import ComputerPlayer from '@/app/minesweeper/computer-player';
 
+class Probability {
+    cell: Cell;
+    total = 0;
+    hasMineCount = 0;
+    isEmptyCount = 0;
+
+    constructor(cell: Cell) {
+        this.cell = cell;
+    }
+
+    hasMine(): boolean {
+        return this.getProbabilityOfHavingMine() === 100;
+    }
+
+    isEmpty(): boolean {
+        return this.getProbabilityOfBeingEmpty() === 100;
+    }
+
+    getProbabilityOfBeingEmpty(): number {
+        return this.isEmptyCount * 100 / this.total;
+    }
+
+    getProbabilityOfHavingMine(): number {
+        return this.hasMineCount * 100 / this.total;
+    }
+}
+
 export default class LogicSolver {
     private game: Game;
     private player: ComputerPlayer;
@@ -135,7 +162,7 @@ export default class LogicSolver {
             return;
         }
 
-        let flaggedOrExplodedNeighbourCellsCount = this.player.getFlaggedOrExplodedNeighbourCellsCount(cell);
+        const flaggedOrExplodedNeighbourCellsCount = this.player.getFlaggedOrExplodedNeighbourCellsCount(cell);
         if (flaggedOrExplodedNeighbourCellsCount === cell.neighbourMinesCount) {
             return;
         }
@@ -185,32 +212,5 @@ export default class LogicSolver {
         }
 
         return probabilities;
-    }
-}
-
-class Probability {
-    cell: Cell;
-    total = 0;
-    hasMineCount = 0;
-    isEmptyCount = 0;
-
-    constructor(cell: Cell) {
-        this.cell = cell;
-    }
-
-    hasMine(): boolean {
-        return this.getProbabilityOfHavingMine() === 100;
-    }
-
-    isEmpty(): boolean {
-        return this.getProbabilityOfBeingEmpty() === 100;
-    }
-
-    getProbabilityOfBeingEmpty(): number {
-        return this.isEmptyCount * 100 / this.total;
-    }
-
-    getProbabilityOfHavingMine(): number {
-        return this.hasMineCount * 100 / this.total;
     }
 }

@@ -29,6 +29,9 @@
                                 <input class="input" type="text" />
                             </div>
                             <div class="message-list">
+                                <div v-for="message of messages.slice().reverse()" v-bind:key="message.createdAt">
+                                    <span class="has-text-grey-light is-size-7">{{ message.createdAt.toLocaleString() }}</span> <b>{{ message.author.name }}</b>: <span class="has-text-weight-light">{{ message.body }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -40,9 +43,78 @@
 
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
+    import User from '@/app/multiplayer/model/user';
+    import Message from '@/app/multiplayer/model/message';
+    import {Client, Room} from "colyseus.js";
+    import ClientStore from '@/app/multiplayer/client-store';
 
     @Component
     export default class Lobby extends Vue {
+        users: User[] = [];
+        messages: Message[] = [];
+        message = '';
+
+        private client: Client;
+        private chatRoom: Room;
+
+        created(): void {
+            const self = this;
+
+            self.client = ClientStore.getClient();
+            const name = localStorage.getItem('username');
+
+            self.client.joinOrCreate("chat_room", { name }).then((room: Room) => {
+                this.chatRoom = room;
+
+                this.chatRoom.state.users.onAdd = function (stateUser: any, id: string) {
+                    const user = new User(id, stateUser.name);
+                    self.users.push(user);
+                };
+
+                this.chatRoom.state.users.onRemove = function (stateUser: any, id: string) {
+                    const index = self.users.findIndex(user => user.id === id);
+                    self.users.splice(index, 1);
+                };
+
+                this.chatRoom.onStateChange((state) => {
+                    self.syncMessages(state);
+                });
+            }).catch(e => {
+                console.log(e);
+            });
+        }
+
+        destroyed(): void {
+            this.chatRoom.leave();
+        }
+
+        sendMessage(): void {
+            if (this.chatRoom === undefined) {
+                return;
+            }
+
+            this.chatRoom.send('message.post', { body: this.message });
+            this.message = '';
+        }
+
+        private syncMessages(state: any): void
+        {
+            const messages: Message[] = [];
+            const stateMessages = state.messages;
+
+            for (const stateMessage of stateMessages) {
+                const index = this.users.findIndex(user => user.id === stateMessage.author.id);
+                const author = index !== -1
+                    ? this.users[index]
+                    : new User(stateMessage.author.id, stateMessage.author.name);
+                const body = stateMessage.body;
+                const createdAt = new Date(stateMessage.createdAt);
+                const message = new Message(author, body, createdAt);
+                messages.push(message);
+            }
+
+            this.messages = messages;
+        }
     }
 </script>
 
