@@ -1,7 +1,7 @@
 <template>
     <div class="columns is-centered">
         <div class="column is-half">
-            <div class="box has-background-light px-6 py-6">
+            <div class="box px-6 py-6">
                 <div class="controls">
                     <div class="field">
                         <div class="control">
@@ -176,21 +176,21 @@
             [Mode.Beginner]: {
                 width: 30,
                 height: 20,
-                mines: 100,
+                mines: 130,
                 speed: 2,
                 lives: 2,
             },
             [Mode.Intermediate]: {
                 width: 40,
                 height: 25,
-                mines: 200,
+                mines: 240,
                 speed: 5,
                 lives: 3,
             },
             [Mode.Expert]: {
                 width: 50,
                 height: 30,
-                mines: 300,
+                mines: 350,
                 speed: 8,
                 lives: 4,
             },

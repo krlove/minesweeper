@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="box has-background-light">
+        <div class="box">
             <game-field
                     v-bind:width="width"
                     v-bind:height="height"

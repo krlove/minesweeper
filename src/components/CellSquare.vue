@@ -1,14 +1,14 @@
 <template>
     <div
-            class="cell is-unselectable"
+            class="cell is-unselectable is-family-code"
             v-bind:style="cellStyle"
             v-on:mousedown="onMouseDown()"
             v-on:mouseup="onMouseUp($event)"
             v-on:click.right.prevent="onRightClick()"
     >
-        <span v-if="cell.isOpened() && cell.getHasMine()" class="icon has-text-black"><i class="fas fa-bomb"></i></span>
+        <span v-if="cell.isOpened() && cell.getHasMine()" class="icon has-text-black"><i class="mdi mdi-18px mdi-mine"></i></span>
         <span v-if="cell.isOpened() && cell.neighbourMinesCount > 0 && !cell.getHasMine()">{{ cell.neighbourMinesCount }}</span>
-        <span v-if="cell.isFlagged()" class="icon has-text-danger"><i class="fas fa-flag"></i></span>
+        <span v-if="cell.isFlagged()" class="icon has-text-danger"><i class="mdi mdi-18px mdi-flag-variant"></i></span>
     </div>
 </template>
 
@@ -31,7 +31,13 @@
                     ? 'rgba(0, 0, 0, 0.2)'
                     : this.cell.openedBy.color;
             } else {
-                backgroundColor = '#00D1B2';
+                //backgroundColor = '#97ABB1';
+                //backgroundColor = '#B57F50';
+                //backgroundColor = '#5FBFF9'; // I like it
+                //backgroundColor = '#3AAFF8';
+                backgroundColor = '#16BAC5'; // norm
+                //backgroundColor = '#BDC696'; // opponent color
+                //backgroundColor = '#C49E85'; // opponent color
             }
 
             return {
@@ -69,7 +75,8 @@
 
 <style scoped lang="scss">
     .cell {
-        border: 1px solid #F5F5F5;
+        border-right: 1px solid whitesmoke;
+        border-bottom: 1px solid whitesmoke;
         position: absolute;
         display: flex;
         align-items: center;

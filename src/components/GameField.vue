@@ -95,7 +95,7 @@
             const computerPlayerBuilder = ComputerPlayerBuilder
                 .newInstance()
                 .setName('Computer')
-                .setColor('#dddddd')
+                .setColor('#FFEAD6')
                 .setStartingCellX(this.width - 1)
                 .setStartingCellY(this.height - 1)
                 .setLives(this.lives)

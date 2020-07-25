@@ -27,7 +27,7 @@
         @Prop() sceneHeight: number;
 
         cameraWidth: number;
-        cameraHeight: number = 600;
+        cameraHeight = 600;
 
         private sceneLeftPosition = 0;
         private sceneTopPosition = 0;
@@ -38,15 +38,12 @@
         private prevY: number;
 
         mounted(): void {
-            // todo calculate by iterating parents and summing their dimensions
-            const cardContentPaddingVertical = 48;
-            const gameDashboardHeight = 67;
-            const gameDashboardPaddingBottom = 24;
+            const rect = this.$el.getBoundingClientRect();
             const elementStyle = getComputedStyle(this.$el);
+            const parentBoxPadding = 20;
 
             this.cameraWidth = parseInt(elementStyle.width);
-            this.cameraHeight = window.innerHeight -
-                (cardContentPaddingVertical + gameDashboardHeight + gameDashboardPaddingBottom);
+            this.cameraHeight = window.innerHeight - (rect.top + parentBoxPadding);
 
             if (this.cameraWidth >= this.sceneWidth) {
                 this.horizontalScrollEnabled = false;

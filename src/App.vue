@@ -1,5 +1,5 @@
 <template>
-  <div class="app has-background-grey-lighter">
+  <div class="app has-background-light">
     <navbar></navbar>
 
     <div class="container">

@@ -1,7 +1,7 @@
 <template>
     <table class="table is-narrow">
         <tbody>
-        <tr v-for="player of players" v-bind:key="player" class="is-family-code">
+        <tr v-for="player of players" v-bind:key="player.color" class="is-family-code">
             <td>{{ player.name }}</td>
             <td>{{ player.getOpenedCellsCount() }} / {{ cellsToOpenCount }}</td>
             <td>
