@@ -8,12 +8,15 @@
                             Players online
                         </div>
                         <div class="players-list-body message-body has-background-white">
+                            <ul>
+                                <li v-for="user of users" v-bind:key="user.id">{{ user.name }}</li>
+                            </ul>
                         </div>
                     </div>
 
                     <div class="message is-dark">
                         <div class="message-header">
-                            Games
+                            <p>Games</p>
                         </div>
                         <div class="games-body message-body has-background-white">
                         </div>
@@ -26,7 +29,12 @@
                         </div>
                         <div class="chat-body message-body has-background-white">
                             <div class="field">
-                                <input class="input" type="text" />
+                                <input
+                                        class="input"
+                                        type="text"
+                                        v-model="message"
+                                        v-on:keyup.enter="sendMessage()"
+                                />
                             </div>
                             <div class="message-list">
                                 <div v-for="message of messages.slice().reverse()" v-bind:key="message.createdAt">
@@ -120,7 +128,7 @@
 
 <style scoped>
     .players-list-body {
-        height: 400px;
+        height: 200px;
         overflow: auto;
     }
 
@@ -130,7 +138,7 @@
     }
 
     .chat-body {
-        height: 662px;
+        height: 462px;
         display: flex;
         flex-flow: column-reverse nowrap;
     }
