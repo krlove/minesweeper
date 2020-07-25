@@ -17,10 +17,7 @@
 
 <script lang="ts">
     import {Component, Prop, Vue} from "vue-property-decorator";
-
-    function range(start: number, end: number): number[] {
-        return Array.from({ length: end - start + 1 }, (_, i) => i + 1)
-    }
+    import {range} from '@/app/util/range';
 
     @Component
     export default class Lives extends Vue {
