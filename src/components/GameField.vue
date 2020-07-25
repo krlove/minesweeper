@@ -183,6 +183,6 @@
         z-index: 2;
     }
     .clickable:active {
-        transform: translate(1px, 1px);
+        transform: translate(0px, 1px);
     }
 </style>

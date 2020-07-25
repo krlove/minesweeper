@@ -176,7 +176,7 @@
             [Mode.Beginner]: {
                 width: 30,
                 height: 20,
-                mines: 120,
+                mines: 110,
                 speed: 2,
                 lives: 2,
             },
