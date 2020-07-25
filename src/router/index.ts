@@ -4,6 +4,7 @@ import GameOptions from '@/components/GameOptions.vue';
 import Rules from '@/components/Rules.vue';
 import Contact from '@/components/Contact.vue';
 import Lobby from '@/components/Lobby.vue';
+import Game from '@/components/Game.vue';
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,20 @@ const routes: Array<RouteConfig> = [
     {
         path: '/play',
         component: GameOptions,
+    },
+    {
+        path: '/game',
+        component: Game,
+        props: function($route) {
+            // todo validate values
+            return {
+                width: $route.query.width,
+                height: $route.query.height,
+                mines: $route.query.mines,
+                speed: $route.query.speed,
+                lives: $route.query.lives,
+            };
+        },
     },
     {
         path: '/rules',

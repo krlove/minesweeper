@@ -1,9 +1,9 @@
 <template>
-  <div class="app has-background-dark">
+  <div class="app has-background-grey-lighter">
     <navbar></navbar>
 
     <div class="container">
-      <div class="mt-3">
+      <div class="mt-5">
         <router-view></router-view>
       </div>
     </div>

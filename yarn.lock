@@ -5249,6 +5249,11 @@ log-symbols@^2.2.0:
   dependencies:
     chalk "^2.0.1"
 
+logicjs@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/logicjs/-/logicjs-1.0.0.tgz#4a76a84ae883aadba37d154caa6b324c6b59a1f8"
+  integrity sha1-SnaoSuiDqtujfRVMqmsyTGtZofg=
+
 loglevel@^1.6.8:
   version "1.6.8"
   resolved "https://registry.npm.taobao.org/loglevel/download/loglevel-1.6.8.tgz#8a25fb75d092230ecd4457270d80b54e28011171"
