@@ -83,7 +83,7 @@
                                 <input
                                         class="slider has-output is-fullwidth is-dark is-small"
                                         min="40"
-                                        max="400"
+                                        max="500"
                                         step="5"
                                         type="range"
                                         v-model="mines"
@@ -211,10 +211,6 @@
                 this.speed = modeConfig.speed;
                 this.lives = modeConfig.lives;
             }
-        }
-
-        play(): void {
-            //this.$router
         }
     }
 </script>
