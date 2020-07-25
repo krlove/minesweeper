@@ -95,7 +95,7 @@
             const computerPlayerBuilder = ComputerPlayerBuilder
                 .newInstance()
                 .setName('Computer')
-                .setColor('#FFEAD6')
+                .setColor('#EDE4D4')
                 .setStartingCellX(this.width - 1)
                 .setStartingCellY(this.height - 1)
                 .setLives(this.lives)
@@ -183,6 +183,6 @@
         z-index: 2;
     }
     .clickable:active {
-        transform: translate(0px, 1px);
+        //transform: translate(0px, 1px);
     }
 </style>

@@ -23,11 +23,11 @@ const routes: Array<RouteConfig> = [
         path: '/game',
         component: Game,
         props: function($route) {
-            let width = typeof $route.query.width === 'string' ? parseInt($route.query.width) : 30;
-            let height = typeof $route.query.height === 'string' ? parseInt($route.query.height) : 20;
-            let mines = typeof $route.query.mines === 'string' ? parseInt($route.query.mines) : 120;
-            let speed = typeof $route.query.speed === 'string' ? parseInt($route.query.speed) : 2;
-            let lives = typeof $route.query.lives === 'string' ? parseInt($route.query.lives) : 2;
+            let width = (typeof $route.query.width) === 'string' ? parseInt($route.query.width) : 30;
+            let height = (typeof $route.query.height) === 'string' ? parseInt($route.query.height) : 20;
+            let mines = (typeof $route.query.mines) === 'string' ? parseInt($route.query.mines) : 120;
+            let speed = (typeof $route.query.speed) === 'string' ? parseInt($route.query.speed) : 2;
+            let lives = (typeof $route.query.lives) === 'string' ? parseInt($route.query.lives) : 2;
 
             width = Math.max(20, Math.min(60, width));
             height = Math.max(10, Math.min(40, height));

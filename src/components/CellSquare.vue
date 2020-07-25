@@ -2,6 +2,12 @@
     <div
             class="cell is-unselectable is-family-code"
             v-bind:style="cellStyle"
+            v-bind:class="{
+                'opened': cell.isOpened(),
+                'closed': !cell.isOpened(),
+                'top': cell.y === 0,
+                'left': cell.x === 0,
+            }"
             v-on:mousedown="onMouseDown()"
             v-on:mouseup="onMouseUp($event)"
             v-on:click.right.prevent="onRightClick()"
@@ -25,28 +31,20 @@
         private lastMouseDownTimestamp: number;
 
         get cellStyle(): any {
-            let backgroundColor;
-            if (this.cell.isOpened()) {
-                backgroundColor = this.cell.isExploded()
-                    ? 'rgba(0, 0, 0, 0.2)'
-                    : this.cell.openedBy.color;
-            } else {
-                //backgroundColor = '#97ABB1';
-                //backgroundColor = '#B57F50';
-                //backgroundColor = '#5FBFF9'; // I like it
-                //backgroundColor = '#3AAFF8';
-                backgroundColor = '#16BAC5'; // norm
-                //backgroundColor = '#BDC696'; // opponent color
-                //backgroundColor = '#C49E85'; // opponent color
-            }
-
-            return {
+            const style = {
                 left: (this.cell.x * this.CELL_SIZE_PX) + 'px',
                 top: (this.cell.y * this.CELL_SIZE_PX) + 'px',
                 height: this.CELL_SIZE_PX + 'px',
                 width: this.CELL_SIZE_PX + 'px',
-                'background-color': backgroundColor,
-            };
+            } as any;
+
+            if (this.cell.isOpened()) {
+                style['background-color'] = this.cell.isExploded()
+                    ? 'rgba(0, 0, 0, 0.2)'
+                    : this.cell.openedBy.color;
+            }
+
+            return style;
         }
 
         onMouseDown(): void {
@@ -75,12 +73,32 @@
 
 <style scoped lang="scss">
     .cell {
-        border-right: 1px solid whitesmoke;
-        border-bottom: 1px solid whitesmoke;
         position: absolute;
         display: flex;
         align-items: center;
         text-align: center;
+        border-radius:4px;
+        border-right:1px solid #dcdcdc;
+        border-bottom:1px solid #dcdcdc;
+        padding: 1px;
+    }
+
+    .cell.left {
+        border-left:1px solid #dcdcdc;
+    }
+
+    .cell.top {
+        border-top:1px solid #dcdcdc;
+    }
+
+    .cell.closed {
+        box-shadow:inset 0px 1px 0px 0px #ffffff;
+        background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+        background-color:#f9f9f9;
+    }
+
+    .cell.closed:hover {
+        opacity: 0.9;
     }
 
     .cell > * {
