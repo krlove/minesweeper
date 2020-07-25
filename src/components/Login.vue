@@ -26,9 +26,7 @@
                         >
                             Continue
                         </button>
-                        <router-link :to="{ path: '/play' }">
-                            <button class="button is-light">Cancel</button>
-                        </router-link>
+                        <router-link tag="button" class="button is-light" :to="{ path: '/play' }">Cancel</router-link>
                     </div>
                 </div>
             </div>

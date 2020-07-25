@@ -11,9 +11,7 @@
             <div class="level-right level-item">
                 <div class="buttons">
                     <button class="button is-small is-danger" v-on:click="restartGame()">Restart</button>
-                    <router-link :to="{ path: '/play' }">
-                        <button class="button is-small is-danger">Quit game</button>
-                    </router-link>
+                    <router-link tag="button" class="button is-small is-danger" :to="{ path: '/play' }">Quit game</router-link>
                 </div>
             </div>
         </div>

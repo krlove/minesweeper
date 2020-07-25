@@ -3,9 +3,9 @@
         <div class="box px-6 py-6">
             <div class="columns">
                 <div class="column is-one-third">
-                    <div class="message is-dark">
+                    <div class="message">
                         <div class="message-header">
-                            Players online
+                            <p>Players online</p>
                         </div>
                         <div class="players-list-body message-body has-background-white">
                             <ul>
@@ -14,18 +14,21 @@
                         </div>
                     </div>
 
-                    <div class="message is-dark">
+                    <div class="message is-light">
                         <div class="message-header">
                             <p>Games</p>
                         </div>
                         <div class="games-body message-body has-background-white">
+                            <div class="has-text-right">
+                                <router-link tag="button" class="button is-small" :to="{ path: '/game/new' }">Create game</router-link>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="column">
-                    <div class="message is-dark">
+                    <div class="message is-light">
                         <div class="message-header">
-                            Chat
+                            <p>Chat</p>
                         </div>
                         <div class="chat-body message-body has-background-white">
                             <div class="field">
@@ -37,7 +40,7 @@
                                 />
                             </div>
                             <div class="message-list">
-                                <div v-for="message of messages.slice().reverse()" v-bind:key="message.createdAt">
+                                <div v-for="message of messages.slice().reverse()" v-bind:key="message.createdAt.toLocaleString()">
                                     <span class="has-text-grey-light is-size-7">{{ message.createdAt.toLocaleString() }}</span> <b>{{ message.author.name }}</b>: <span class="has-text-weight-light">{{ message.body }}</span>
                                 </div>
                             </div>

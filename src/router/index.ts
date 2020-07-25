@@ -7,8 +7,20 @@ import Lobby from '@/components/Lobby.vue';
 import Game from '@/components/Game.vue';
 import {default as Minesweeper} from '@/app/minesweeper/game';
 import Login from '@/components/Login.vue';
+import NewGame from '@/components/NewGame.vue';
 
 Vue.use(VueRouter);
+
+const loginBeforeEnter = (to: Route, from: Route, next: any) => {
+    const username = localStorage.getItem('username');
+    if (!username) {
+        next({
+            path: '/login',
+        });
+    } else {
+        next();
+    }
+};
 
 const routes: Array<RouteConfig> = [
     {
@@ -54,16 +66,12 @@ const routes: Array<RouteConfig> = [
     {
         path: '/lobby',
         component: Lobby,
-        beforeEnter (to: Route, from: Route, next: any) {
-            const username = localStorage.getItem('username');
-            if (!username) {
-                next({
-                    path: '/login',
-                });
-            } else {
-                next();
-            }
-        },
+        beforeEnter: loginBeforeEnter,
+    },
+    {
+        path: '/games/new',
+        component: NewGame,
+        beforeEnter: loginBeforeEnter,
     },
 ];
 
