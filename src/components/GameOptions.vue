@@ -139,7 +139,7 @@
                 </div>
 
                 <div class="buttons">
-                    <router-link :to="{ path: '/game', query: { width, height, mines, speed, lives } }">
+                    <router-link :to="{ path: '/computer', query: { width, height, mines, speed, lives } }">
                         <button class="button is-danger">Play</button>
                     </router-link>
                 </div>
