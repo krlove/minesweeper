@@ -24,7 +24,7 @@ export default class ComputerPlayer extends Player {
 
     setSpeed(speed: number): void {
         this.speed = speed;
-        this.moveTimeMs = 1100 - this.speed * 100;
+        this.moveTimeMs = 1200 - this.speed * 100;
     }
 
     getInternalFlags(): boolean[][] {
