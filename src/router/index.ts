@@ -1,11 +1,12 @@
 import Vue from 'vue'
-import VueRouter, {RouteConfig} from 'vue-router'
+import VueRouter, {Route, RouteConfig} from 'vue-router'
 import GameOptions from '@/components/GameOptions.vue';
 import Rules from '@/components/Rules.vue';
 import Contact from '@/components/Contact.vue';
 import Lobby from '@/components/Lobby.vue';
 import Game from '@/components/Game.vue';
 import {default as Minesweeper} from '@/app/minesweeper/game';
+import Login from '@/components/Login.vue';
 
 Vue.use(VueRouter);
 
@@ -47,8 +48,22 @@ const routes: Array<RouteConfig> = [
         component: Contact,
     },
     {
+        path: '/login',
+        component: Login,
+    },
+    {
         path: '/lobby',
         component: Lobby,
+        beforeEnter (to: Route, from: Route, next: any) {
+            const username = localStorage.getItem('username');
+            if (!username) {
+                next({
+                    path: '/login',
+                });
+            } else {
+                next();
+            }
+        },
     },
 ];
 
