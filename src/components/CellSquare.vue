@@ -14,7 +14,7 @@
     >
         <span
                 v-if="cell.isOpened() && cell.getHasMine()"
-                class="icon has-text-black"
+                class="icon"
         >
             <i class="mdi mdi-18px mdi-mine"></i>
         </span>
@@ -54,10 +54,8 @@
                 width: this.CELL_SIZE_PX + 'px',
             } as any;
 
-            if (this.cell.isOpened()) {
-                style['background-color'] = this.cell.isExploded()
-                    ? 'rgba(0, 0, 0, 0.2)'
-                    : this.cell.openedBy.color;
+            if (this.cell.isOpened() && !this.cell.isExploded()) {
+                style['background-color'] = this.cell.openedBy.color;
             }
 
             return style;
