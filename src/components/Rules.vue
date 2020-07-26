@@ -21,19 +21,19 @@
                         <table class="table is-bordered">
                             <tbody>
                             <tr>
-                                <th>Left click on a closed cell</th>
+                                <td>Left click on a closed cell</td>
                                 <td>open the cell</td>
                             </tr>
                             <tr>
-                                <th>Right click on a closed cell</th>
+                                <td>Right click on a closed cell</td>
                                 <td>flag the cell</td>
                             </tr>
                             <tr>
-                                <th>Left click on an opened cell</th>
+                                <td>Left click on an opened cell</td>
                                 <td>open adjacent cells</td>
                             </tr>
                             <tr>
-                                <th>Hold left click and move the mouse</th>
+                                <td>Hold left click and move the mouse</td>
                                 <td>drag the field</td>
                             </tr>
                             </tbody>
