@@ -3,7 +3,7 @@
         <div class="column is-half">
             <div class="box px-6 py-6">
                 <game-options
-                    v-bind:vs-computer="false"
+                    v-bind:vs-computer="true"
                     v-bind:on-play-click="onPlayClick"
                 ></game-options>
             </div>

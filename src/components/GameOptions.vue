@@ -113,7 +113,7 @@
                 </div>
             </div>
 
-            <div class="field">
+            <div class="field" v-if="vsComputer">
                 <div class="control columns is-vcentered">
                     <div class="column is-3">
                         <label class="label">Computer speed</label>
