@@ -10,8 +10,8 @@
             </div>
             <div class="level-right level-item">
                 <div class="buttons">
-                    <button class="button is-small is-danger" v-on:click="restartGame()">Restart</button>
-                    <router-link tag="button" class="button is-small is-danger" :to="{ path: '/play' }">Quit game</router-link>
+                    <button class="button is-small" v-on:click="restartGame()">Restart</button>
+                    <router-link tag="button" class="button is-small" :to="{ path: '/play' }">Quit game</router-link>
                 </div>
             </div>
         </div>
@@ -93,7 +93,7 @@
             const computerPlayerBuilder = ComputerPlayerBuilder
                 .newInstance()
                 .setName('Computer')
-                .setColor('#EDE4D4')
+                .setColor('#ECB998')
                 .setStartingCellX(this.width - 1)
                 .setStartingCellY(this.height - 1)
                 .setLives(this.lives)

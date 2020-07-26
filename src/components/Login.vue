@@ -20,7 +20,7 @@
 
                     <div class="buttons">
                         <button
-                                class="button is-danger"
+                                class="button"
                                 :disabled="username.length < 3"
                                 v-on:click="saveAndContinue()"
                         >

@@ -12,9 +12,25 @@
             v-on:mouseup="onMouseUp($event)"
             v-on:click.right.prevent="onRightClick()"
     >
-        <span v-if="cell.isOpened() && cell.getHasMine()" class="icon has-text-black"><i class="mdi mdi-18px mdi-mine"></i></span>
-        <span v-if="cell.isOpened() && cell.neighbourMinesCount > 0 && !cell.getHasMine()">{{ cell.neighbourMinesCount }}</span>
-        <span v-if="cell.isFlagged()" class="icon has-text-danger"><i class="mdi mdi-18px mdi-flag-variant"></i></span>
+        <span
+                v-if="cell.isOpened() && cell.getHasMine()"
+                class="icon has-text-black"
+        >
+            <i class="mdi mdi-18px mdi-mine"></i>
+        </span>
+        <span
+                v-if="cell.isOpened() && cell.neighbourMinesCount > 0 && !cell.getHasMine()"
+                v-bind:style="cellWithNumberStyle(cell)"
+                class="has-text-weight-bold"
+        >
+            {{ cell.neighbourMinesCount }}
+        </span>
+        <span
+                v-if="cell.isFlagged()"
+                class="icon has-text-danger"
+        >
+            <i class="mdi mdi-18px mdi-flag-variant"></i>
+        </span>
     </div>
 </template>
 
@@ -45,6 +61,24 @@
             }
 
             return style;
+        }
+
+        cellWithNumberStyle(cell: Cell): any {
+            const colors = [
+                '#0a0a0a',
+                '#0000ff',
+                '#007b00',
+                '#ff0000',
+                '#00007b',
+                '#7b0000',
+                '#007b7b',
+                '#000000',
+                '#7b7b7b'
+            ];
+
+            return {
+                color: colors[cell.neighbourMinesCount],
+            };
         }
 
         onMouseDown(): void {

@@ -3,7 +3,7 @@
         <div class="box px-6 py-6">
             <div class="columns">
                 <div class="column is-one-third">
-                    <div class="message">
+                    <div class="message is-light">
                         <div class="message-header">
                             <p>Players online</p>
                         </div>
