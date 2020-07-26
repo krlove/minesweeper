@@ -1,6 +1,6 @@
 <template>
     <div>
-        Create new game
+
     </div>
 </template>
 
