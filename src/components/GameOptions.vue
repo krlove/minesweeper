@@ -137,7 +137,7 @@
         </div>
 
         <div class="buttons">
-            <button class="button" v-on:click="playClick">Play</button>
+            <button class="button" v-on:click="playClick">{{ vsComputer ? 'Play' : 'Create game' }}</button>
         </div>
     </div>
 </template>
@@ -211,6 +211,7 @@
         }
 
         playClick(): void {
+            // todo what to do with the buttons?
             const gameConfig: GameConfig = {
                 width: this.width,
                 height: this.height,

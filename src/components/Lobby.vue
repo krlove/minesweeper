@@ -22,6 +22,11 @@
                             <div class="has-text-right">
                                 <router-link tag="button" class="button is-small" :to="{ path: '/game/new' }">Create game</router-link>
                             </div>
+                            <div>
+                                <ul>
+                                    <li v-for="game of games" v-bind:key="game.roomId">{{ game.width }} / {{ game.height }} / {{ game.mines }}</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,11 +63,13 @@
     import Message from '@/app/multiplayer/model/message';
     import {Client, Room} from "colyseus.js";
     import ClientStore from '@/app/multiplayer/client-store';
+    import Game from "@/app/multiplayer/model/Game";
 
     @Component
     export default class Lobby extends Vue {
         users: User[] = [];
         messages: Message[] = [];
+        games: Game[] = [];
         message = '';
 
         private client: Client;
@@ -87,10 +94,27 @@
                     self.users.splice(index, 1);
                 };
 
+                this.chatRoom.state.games.onAdd = function (stateGame: any, id: string) {
+                    const game = new Game();
+                    game.roomId = stateGame.roomId;
+                    game.width = stateGame.width;
+                    game.height = stateGame.height;
+                    game.mines = stateGame.mines;
+                    game.lives = stateGame.lives;
+
+                    self.games.push(game);
+                };
+
+                this.chatRoom.state.games.onRemove = function (stateGame: any, id: string) {
+                    const index = self.games.findIndex(game => game.roomId === stateGame.roomId);
+                    self.games.splice(index, 1);
+                };
+
                 this.chatRoom.onStateChange((state) => {
                     self.syncMessages(state);
                 });
             }).catch(e => {
+                // todo show something
                 console.log(e);
             });
         }

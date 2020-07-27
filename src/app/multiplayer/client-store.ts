@@ -1,7 +1,8 @@
-import {Client} from 'colyseus.js';
+import {Client, Room} from 'colyseus.js';
 
 export default class ClientStore {
-    static client: Client;
+    private static client: Client;
+    private static roomPool: Map<string, Room> = new Map();
 
     static getClient(): Client
     {
@@ -10,5 +11,19 @@ export default class ClientStore {
         }
 
         return this.client;
+    }
+
+    static addRoom(room: Room): void
+    {
+        this.roomPool.set(room.id, room);
+    }
+
+    static getRoom(id: string): Room|undefined {
+        return this.roomPool.has(id) ? this.roomPool.get(id) : undefined;
+    }
+
+    static removeRoom(room: Room): void
+    {
+        this.roomPool.delete(room.id);
     }
 }

@@ -8,6 +8,7 @@ import {default as Minesweeper} from '@/app/minesweeper/game';
 import Login from '@/components/Login.vue';
 import NewGame from '@/components/NewGame.vue';
 import PlayVsComputer from '@/components/PlayVsComputer.vue';
+import GameLobby from '@/components/GameLobby.vue';
 
 Vue.use(VueRouter);
 
@@ -69,9 +70,19 @@ const routes: Array<RouteConfig> = [
         beforeEnter: loginBeforeEnter,
     },
     {
-        path: '/games/new',
+        path: '/game/new',
         component: NewGame,
         beforeEnter: loginBeforeEnter,
+    },
+    {
+        path: '/game/:id',
+        component: GameLobby,
+        beforeEnter: loginBeforeEnter,
+        props: function ($route) {
+            return {
+                gameId: $route.params.id,
+            };
+        },
     },
 ];
 
