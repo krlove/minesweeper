@@ -24,10 +24,19 @@
                             <div class="has-text-right">
                                 <router-link tag="button" class="button is-small" :to="{ path: '/match/new' }">Create match</router-link>
                             </div>
-                            <div>
-                                <ul>
-                                    <li v-for="match of matches" v-bind:key="match.roomId">{{ match.width }} / {{ match.height }} / {{ match.mines }}</li>
-                                </ul>
+                            <div class="my-3">
+                                <div v-for="match of matches" v-bind:key="match.roomId">
+                                    <div class="level">
+                                        <div class="level-left">
+                                            <span class="level-item">
+                                                {{ match.width }}/{{ match.height }}/{{ match.mines }}/{{ match.lives }} by {{ match.author }}
+                                            </span>
+                                        </div>
+                                        <div class="level-right">
+                                            <a>Join</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -65,13 +74,13 @@
     import Message from '@/app/multiplayer/model/message';
     import {Client, Room} from "colyseus.js";
     import ClientStore from '@/app/multiplayer/client-store';
-    import Game from "@/app/multiplayer/model/Game";
+    import Match from "@/app/multiplayer/model/Match";
 
     @Component
     export default class Lobby extends Vue {
         users: User[] = [];
         messages: Message[] = [];
-        matches: Game[] = [];
+        matches: Match[] = [];
         message = '';
 
         private client: Client;
@@ -97,15 +106,16 @@
                 };
 
                 this.chatRoom.state.matches.onAdd = function (stateGame: any, id: string) {
-                    // todo send game creator as well
-                    const game = new Game();
-                    game.roomId = stateGame.roomId;
-                    game.width = stateGame.width;
-                    game.height = stateGame.height;
-                    game.mines = stateGame.mines;
-                    game.lives = stateGame.lives;
+                    // todo send match creator as well
+                    const match = new Match();
+                    match.roomId = stateGame.roomId;
+                    match.author = stateGame.author;
+                    match.width = stateGame.width;
+                    match.height = stateGame.height;
+                    match.mines = stateGame.mines;
+                    match.lives = stateGame.lives;
 
-                    self.matches.push(game);
+                    self.matches.push(match);
                 };
 
                 this.chatRoom.state.matches.onRemove = function (stateGame: any, id: string) {

@@ -28,7 +28,7 @@
 
             const client = ClientStore.getClient();
             const matchRoom = await client.create('match_room', {
-                name,
+                author: name,
                 width: gameConfig.width,
                 height: gameConfig.height,
                 mines: gameConfig.mines,

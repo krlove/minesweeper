@@ -1,5 +1,6 @@
-export default class Game {
+export default class Match {
     roomId: string;
+    author: string;
     width: number;
     height: number;
     mines: number;
