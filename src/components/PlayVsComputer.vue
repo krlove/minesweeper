@@ -2,6 +2,8 @@
     <div class="columns is-centered">
         <div class="column is-half">
             <div class="box px-6 py-6">
+                <p class="title">Play vs computer</p>
+
                 <game-options
                     v-bind:vs-computer="true"
                     v-bind:on-play-click="onPlayClick"

@@ -1,6 +1,8 @@
 <template>
     <div>
         <div class="box px-6 py-6">
+            <p class="title">Lobby</p>
+
             <div class="columns">
                 <div class="column is-one-third">
                     <div class="message">

@@ -3,6 +3,8 @@
         <div class="columns is-centered">
             <div class="column is-half">
                 <div class="box px-6 py-6">
+                    <p class="title">Rules</p>
+
                     <div class="content">
                         <p><b>Minesweeper Battle</b>'s rules are the same as classical Minesweeper's except the following.</p>
                         <p>
