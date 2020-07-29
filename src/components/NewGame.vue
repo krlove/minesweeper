@@ -25,16 +25,16 @@
             const name = localStorage.getItem('username');
 
             const client = ClientStore.getClient();
-            const gameRoom = await client.create('game_room', {
+            const matchRoom = await client.create('match_room', {
                 name,
                 width: gameConfig.width,
                 height: gameConfig.height,
                 mines: gameConfig.mines,
                 lives: gameConfig.lives,
             });
-            ClientStore.addRoom(gameRoom);
+            ClientStore.addRoom(matchRoom);
 
-            this.$router.push({ path: `/game/${gameRoom.id}` });
+            this.$router.push({ path: `/match/${matchRoom.id}` });
         }
     }
 </script>

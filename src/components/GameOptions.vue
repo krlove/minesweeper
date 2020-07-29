@@ -137,7 +137,7 @@
         </div>
 
         <div class="buttons">
-            <button class="button" v-on:click="playClick">{{ vsComputer ? 'Play' : 'Create game' }}</button>
+            <button class="button" v-on:click="playClick">{{ vsComputer ? 'Play' : ' Create match' }}</button>
         </div>
     </div>
 </template>

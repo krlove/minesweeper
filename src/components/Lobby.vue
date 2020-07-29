@@ -3,39 +3,39 @@
         <div class="box px-6 py-6">
             <div class="columns">
                 <div class="column is-one-third">
-                    <div class="message is-light">
+                    <div class="message">
                         <div class="message-header">
                             <p>Players online</p>
                         </div>
-                        <div class="players-list-body message-body has-background-white">
+                        <div class="players-list-body message-body">
                             <ul>
                                 <li v-for="user of users" v-bind:key="user.id">{{ user.name }}</li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="message is-light">
+                    <div class="message">
                         <div class="message-header">
-                            <p>Games</p>
+                            <p>Matches</p>
                         </div>
-                        <div class="games-body message-body has-background-white">
+                        <div class="matches-body message-body">
                             <div class="has-text-right">
-                                <router-link tag="button" class="button is-small" :to="{ path: '/game/new' }">Create game</router-link>
+                                <router-link tag="button" class="button is-small" :to="{ path: '/match/new' }">Create match</router-link>
                             </div>
                             <div>
                                 <ul>
-                                    <li v-for="game of games" v-bind:key="game.roomId">{{ game.width }} / {{ game.height }} / {{ game.mines }}</li>
+                                    <li v-for="match of matches" v-bind:key="match.roomId">{{ match.width }} / {{ match.height }} / {{ match.mines }}</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="column">
-                    <div class="message is-light">
+                    <div class="message">
                         <div class="message-header">
                             <p>Chat</p>
                         </div>
-                        <div class="chat-body message-body has-background-white">
+                        <div class="chat-body message-body">
                             <div class="field">
                                 <input
                                         class="input"
@@ -69,7 +69,7 @@
     export default class Lobby extends Vue {
         users: User[] = [];
         messages: Message[] = [];
-        games: Game[] = [];
+        matches: Game[] = [];
         message = '';
 
         private client: Client;
@@ -94,7 +94,8 @@
                     self.users.splice(index, 1);
                 };
 
-                this.chatRoom.state.games.onAdd = function (stateGame: any, id: string) {
+                this.chatRoom.state.matches.onAdd = function (stateGame: any, id: string) {
+                    // todo send game creator as well
                     const game = new Game();
                     game.roomId = stateGame.roomId;
                     game.width = stateGame.width;
@@ -102,12 +103,12 @@
                     game.mines = stateGame.mines;
                     game.lives = stateGame.lives;
 
-                    self.games.push(game);
+                    self.matches.push(game);
                 };
 
-                this.chatRoom.state.games.onRemove = function (stateGame: any, id: string) {
-                    const index = self.games.findIndex(game => game.roomId === stateGame.roomId);
-                    self.games.splice(index, 1);
+                this.chatRoom.state.matches.onRemove = function (stateGame: any, id: string) {
+                    const index = self.matches.findIndex(game => game.roomId === stateGame.roomId);
+                    self.matches.splice(index, 1);
                 };
 
                 this.chatRoom.onStateChange((state) => {
@@ -159,7 +160,7 @@
         overflow: auto;
     }
 
-    .games-body {
+    .matches-body {
         height: 200px;
         overflow: auto;
     }
