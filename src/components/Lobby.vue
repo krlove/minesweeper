@@ -9,7 +9,7 @@
                         <div class="message-header">
                             <p>Players online</p>
                         </div>
-                        <div class="players-list-body message-body">
+                        <div class="players-list-body message-body has-background-white">
                             <ul>
                                 <li v-for="user of users" v-bind:key="user.id">{{ user.name }}</li>
                             </ul>
@@ -20,7 +20,7 @@
                         <div class="message-header">
                             <p>Matches</p>
                         </div>
-                        <div class="matches-body message-body">
+                        <div class="matches-body message-body has-background-white">
                             <div class="has-text-right">
                                 <router-link tag="button" class="button is-small" :to="{ path: '/match/new' }">Create match</router-link>
                             </div>
@@ -37,7 +37,7 @@
                         <div class="message-header">
                             <p>Chat</p>
                         </div>
-                        <div class="chat-body message-body">
+                        <div class="chat-body message-body has-background-white">
                             <div class="field">
                                 <input
                                         class="input"
