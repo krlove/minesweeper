@@ -14,28 +14,28 @@
                                 </span>
                             </div>
                             <div class="column is-5 has-text-centered">
-                                <span class="title is-6">Waiting for an opponent...</span>
+                                <span class="title is-6 has-text-warning">waiting for an opponent...</span>
                             </div>
                         </div>
                         <div class="level">
                             <div class="level-item">
-                                <span>Width: {{ width }}</span>
+                                <span>Width: <b>{{ width }}</b></span>
                             </div>
                             <div class="level-item">
-                                <span>Height: {{ height }}</span>
+                                <span>Height: <b>{{ height }}</b></span>
                             </div>
                             <div class="level-item">
-                                <span>Mines: {{ mines }}</span>
+                                <span>Mines: <b>{{ mines }}</b></span>
                             </div>
                             <div class="level-item">
-                                <span>Lives: {{ lives }}</span>
+                                <span>Lives: <b>{{ lives }}</b></span>
                             </div>
                         </div>
                         <div class="message">
                             <div class="message-header">
                                 <p>Chat</p>
                             </div>
-                            <div class="message-body">
+                            <div class="message-body has-background-white">
                                 Chat here
                             </div>
                         </div>

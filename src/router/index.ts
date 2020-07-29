@@ -6,7 +6,7 @@ import Lobby from '@/components/Lobby.vue';
 import Game from '@/components/Game.vue';
 import {default as Minesweeper} from '@/app/minesweeper/game';
 import Login from '@/components/Login.vue';
-import NewGame from '@/components/NewGame.vue';
+import NewMatch from '@/components/NewMatch.vue';
 import PlayVsComputer from '@/components/PlayVsComputer.vue';
 import MatchLobby from '@/components/MatchLobby.vue';
 
@@ -71,7 +71,7 @@ const routes: Array<RouteConfig> = [
     },
     {
         path: '/match/new',
-        component: NewGame,
+        component: NewMatch,
         beforeEnter: loginBeforeEnter,
     },
     {

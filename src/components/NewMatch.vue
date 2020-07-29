@@ -2,6 +2,8 @@
     <div class="columns is-centered">
         <div class="column is-half">
             <div class="box px-6 py-6">
+                <p class="title">Create match</p>
+
                 <game-options
                         v-bind:vs-computer="false"
                         v-bind:on-play-click="onPlayClick"
@@ -20,7 +22,7 @@
     @Component({
         components: {GameOptions}
     })
-    export default class NewGame extends Vue {
+    export default class NewMatch extends Vue {
         async onPlayClick(gameConfig: GameConfig): void {
             const name = localStorage.getItem('username');
 
