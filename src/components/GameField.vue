@@ -26,7 +26,6 @@
                     <template v-for="(row, i) in cells">
                         <template v-for="(cell, j) in row">
                             <cell-square
-                                    v-bind:class="{ clickable: currentPlayer.state === PlayerState.Playing }"
                                     v-bind:cell="cell"
                                     :key="i + '-' + j"
                                     v-on:open-cell="onOpenCell"
@@ -179,8 +178,5 @@
         align-items: center;
         justify-content: center;
         z-index: 2;
-    }
-    .clickable:active {
-        //transform: translate(0px, 1px);
     }
 </style>

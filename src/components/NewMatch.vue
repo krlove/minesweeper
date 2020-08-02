@@ -24,11 +24,11 @@
     })
     export default class NewMatch extends Vue {
         async onPlayClick(gameConfig: GameConfig): void {
-            const name = localStorage.getItem('username');
+            const username = localStorage.getItem('username');
 
             const client = ClientStore.getClient();
             const matchRoom = await client.create('match_room', {
-                author: name,
+                username,
                 width: gameConfig.width,
                 height: gameConfig.height,
                 mines: gameConfig.mines,

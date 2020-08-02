@@ -11,7 +11,7 @@
                         </div>
                         <div class="players-list-body message-body has-background-white">
                             <ul>
-                                <li v-for="user of users" v-bind:key="user.id">{{ user.name }}</li>
+                                <li v-for="user of users" v-bind:key="user.id">{{ user.username }}</li>
                             </ul>
                         </div>
                     </div>
@@ -29,11 +29,11 @@
                                     <div class="level">
                                         <div class="level-left">
                                             <span class="level-item">
-                                                {{ match.width }}/{{ match.height }}/{{ match.mines }}/{{ match.lives }} by {{ match.author }}
+                                                {{ match.width }}/{{ match.height }}/{{ match.mines }}/{{ match.lives }} by {{ match.username }}
                                             </span>
                                         </div>
                                         <div class="level-right">
-                                            <a>Join</a>
+                                            <router-link tag="button" class="button is-small" :to="{ path: `/match/${match.roomId}` }">Join</router-link>
                                         </div>
                                     </div>
                                 </div>
@@ -57,7 +57,8 @@
                             </div>
                             <div class="message-list">
                                 <div v-for="message of messages.slice().reverse()" v-bind:key="message.createdAt.toLocaleString()">
-                                    <span class="has-text-grey-light is-size-7">{{ message.createdAt.toLocaleString() }}</span> <b>{{ message.author.name }}</b>: <span class="has-text-weight-light">{{ message.body }}</span>
+                                    <span class="has-text-grey-light is-size-7">{{ message.createdAt.toLocaleString() }}</span> <b>{{
+                                    message.author.username }}</b>: <span class="has-text-weight-light">{{ message.body }}</span>
                                 </div>
                             </div>
                         </div>
@@ -84,64 +85,58 @@
         message = '';
 
         private client: Client;
-        private chatRoom: Room;
+        private lobbyRoom: Room;
 
-        created(): void {
+        async created(): void {
             const self = this;
 
             self.client = ClientStore.getClient();
-            const name = localStorage.getItem('username');
+            const username = localStorage.getItem('username');
 
-            self.client.joinOrCreate("chat_room", { name }).then((room: Room) => {
-                this.chatRoom = room;
+            this.lobbyRoom = await this.client.joinOrCreate('lobby_room', { username });
 
-                this.chatRoom.state.users.onAdd = function (stateUser: any, id: string) {
-                    const user = new User(id, stateUser.name);
-                    self.users.push(user);
-                };
+            this.lobbyRoom.state.users.onAdd = function (stateUser: any, id: string) {
+                const user = new User(id, stateUser.username);
+                self.users.push(user);
+            };
 
-                this.chatRoom.state.users.onRemove = function (stateUser: any, id: string) {
-                    const index = self.users.findIndex(user => user.id === id);
-                    self.users.splice(index, 1);
-                };
+            this.lobbyRoom.state.users.onRemove = function (stateUser: any, id: string) {
+                const index = self.users.findIndex(user => user.id === id);
+                self.users.splice(index, 1);
+            };
 
-                this.chatRoom.state.matches.onAdd = function (stateGame: any, id: string) {
-                    // todo send match creator as well
-                    const match = new Match();
-                    match.roomId = stateGame.roomId;
-                    match.author = stateGame.author;
-                    match.width = stateGame.width;
-                    match.height = stateGame.height;
-                    match.mines = stateGame.mines;
-                    match.lives = stateGame.lives;
+            this.lobbyRoom.state.matches.onAdd = function (stateGame: any, id: string) {
+                const match = new Match();
+                match.roomId = stateGame.roomId;
+                match.username = stateGame.username;
+                match.width = stateGame.width;
+                match.height = stateGame.height;
+                match.mines = stateGame.mines;
+                match.lives = stateGame.lives;
 
-                    self.matches.push(match);
-                };
+                self.matches.push(match);
+            };
 
-                this.chatRoom.state.matches.onRemove = function (stateGame: any, id: string) {
-                    const index = self.matches.findIndex(game => game.roomId === stateGame.roomId);
-                    self.matches.splice(index, 1);
-                };
+            this.lobbyRoom.state.matches.onRemove = function (stateGame: any, id: string) {
+                const index = self.matches.findIndex(game => game.roomId === stateGame.roomId);
+                self.matches.splice(index, 1);
+            };
 
-                this.chatRoom.onStateChange((state) => {
-                    self.syncMessages(state);
-                });
-            }).catch(e => {
-                // todo show something
-                console.log(e);
+            this.lobbyRoom.onStateChange((state) => {
+                self.syncMessages(state);
             });
         }
 
         destroyed(): void {
-            this.chatRoom.leave();
+            this.lobbyRoom.leave();
         }
 
         sendMessage(): void {
-            if (this.chatRoom === undefined) {
+            if (this.lobbyRoom === undefined) {
                 return;
             }
 
-            this.chatRoom.send('message.post', { body: this.message });
+            this.lobbyRoom.send('message.post', { body: this.message });
             this.message = '';
         }
 
@@ -151,10 +146,11 @@
             const stateMessages = state.messages;
 
             for (const stateMessage of stateMessages) {
+                // todo use user "as is" ?
                 const index = this.users.findIndex(user => user.id === stateMessage.author.id);
                 const author = index !== -1
                     ? this.users[index]
-                    : new User(stateMessage.author.id, stateMessage.author.name);
+                    : new User(stateMessage.author.id, stateMessage.author.username);
                 const body = stateMessage.body;
                 const createdAt = new Date(stateMessage.createdAt);
                 const message = new Message(author, body, createdAt);

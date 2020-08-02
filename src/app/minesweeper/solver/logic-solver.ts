@@ -99,7 +99,7 @@ export default class LogicSolver {
             }
             const rule = and.apply(null, ruleArgs);
             const closedLVarArray = Array.from(closedLVars.values());
-            const closedCellsArray = closedLVarArray.map((closedLVar) => closedLVar.name);
+            const closedCellsArray = closedLVarArray.map((closedLVar) => closedLVar.username);
             const probabilities = run(rule, closedLVarArray);
 
             const composedProbabilities = LogicSolver.composeProbabilities(closedCellsArray, probabilities);

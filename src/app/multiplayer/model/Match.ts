@@ -1,6 +1,6 @@
 export default class Match {
     roomId: string;
-    author: string;
+    username: string;
     width: number;
     height: number;
     mines: number;
