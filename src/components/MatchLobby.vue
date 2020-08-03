@@ -128,8 +128,6 @@
             };
 
             this.matchRoom.onMessage('message.post', function(message) {
-                // todo use user "as is" ?
-                console.log(message);
                 const index = self.users.findIndex(user => user.id === message.author.id);
                 const author = index !== -1
                     ? self.users[index]
