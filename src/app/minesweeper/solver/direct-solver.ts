@@ -1,16 +1,16 @@
 import {DoublyLinkedList, Node} from "@/app/util/doubly-linked-list";
 import Cell from "@/app/minesweeper/cell";
-import Game from "@/app/minesweeper/game";
+import Minesweeper from "@/app/minesweeper/minesweeper";
 import Action from "@/app/minesweeper/solver/action";
 import ComputerPlayer from '@/app/minesweeper/computer-player';
 
 export default class DirectSolver {
-    private game: Game;
+    private game: Minesweeper;
     private player: ComputerPlayer;
     private cellsToAnalyze: DoublyLinkedList<Cell>;
     private internalFlags: boolean[][];
 
-    constructor(game: Game, player: ComputerPlayer) {
+    constructor(game: Minesweeper, player: ComputerPlayer) {
         this.game = game;
         this.player = player;
         this.internalFlags = this.player.getInternalFlags();

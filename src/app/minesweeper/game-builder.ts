@@ -1,4 +1,4 @@
-import Game from '@/app/minesweeper/game';
+import Minesweeper from '@/app/minesweeper/minesweeper';
 import PlayerBuilder from '@/app/minesweeper/player-builder';
 
 export default class GameBuilder {
@@ -42,8 +42,8 @@ export default class GameBuilder {
         return this;
     }
     
-    create(): Game {
-        const game = new Game(this.width, this.height);
+    create(): Minesweeper {
+        const game = new Minesweeper(this.width, this.height);
         if (this.minesRandomPlacement) {
             game.setMines(this.mines);
         }

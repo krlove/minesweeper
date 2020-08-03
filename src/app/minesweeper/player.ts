@@ -1,5 +1,5 @@
 import Cell from "@/app/minesweeper/cell";
-import Game from "@/app/minesweeper/game";
+import Minesweeper from "@/app/minesweeper/minesweeper";
 import {PlayerState} from "@/app/minesweeper/enum";
 
 export default class Player {
@@ -8,7 +8,7 @@ export default class Player {
     startingCell: Cell;
     state: PlayerState;
     lives: number;
-    protected game: Game;
+    protected game: Minesweeper;
     protected openedCellsCount = 0;
 
     constructor(name: string, color: string) {
@@ -17,7 +17,7 @@ export default class Player {
         this.state = PlayerState.Ready;
     }
 
-    setGame(game: Game): void {
+    setGame(game: Minesweeper): void {
         this.game = game;
     }
 

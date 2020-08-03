@@ -1,6 +1,6 @@
 import Player from '@/app/minesweeper/player';
 import DirectSolver from '@/app/minesweeper/solver/direct-solver';
-import Game from '@/app/minesweeper/game';
+import Minesweeper from '@/app/minesweeper/minesweeper';
 import LogicSolver from '@/app/minesweeper/solver/logic-solver';
 import Action, {ActionType} from '@/app/minesweeper/solver/action';
 import {GameState, OpenedNeighbourCells, PlayerState} from '@/app/minesweeper/enum';
@@ -14,7 +14,7 @@ export default class ComputerPlayer extends Player {
     private moveTimeMs: number;
     private internalFlags: boolean[][];
 
-    setGame(game: Game): void {
+    setGame(game: Minesweeper): void {
         super.setGame(game);
         this.initializeInternalFlags();
 

@@ -1,5 +1,5 @@
 import Player from "@/app/minesweeper/player";
-import Game from "@/app/minesweeper/game";
+import Minesweeper from "@/app/minesweeper/minesweeper";
 
 export default class Cell {
     public x: number;
@@ -7,12 +7,12 @@ export default class Cell {
     public neighbourMinesCount = 0;
     public openedBy: Player;
     private hasMine = false;
-    private game: Game;
+    private game: Minesweeper;
     private opened = false;
     private flagged = false;
     private exploded = false;
 
-    constructor(x: number, y: number, game: Game) {
+    constructor(x: number, y: number, game: Minesweeper) {
         this.x = x;
         this.y = y;
         this.game = game;

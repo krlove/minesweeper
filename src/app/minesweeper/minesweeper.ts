@@ -2,7 +2,7 @@ import Cell from './cell';
 import {GameState, OpenedNeighbourCells, PlayerState} from './enum';
 import Player from "@/app/minesweeper/player";
 
-export default class Game {
+export default class Minesweeper {
     static readonly startingLocationRadius = 3;
 
     state: GameState = GameState.Uninitialized;
@@ -192,7 +192,7 @@ export default class Game {
 
     private placeMines(): void {
         let minesPlaced = 0;
-        const startingLocationRadiusSquare = Math.pow(Game.startingLocationRadius, 2);
+        const startingLocationRadiusSquare = Math.pow(Minesweeper.startingLocationRadius, 2);
 
         minesLoop:
         while (minesPlaced < this.mines) {

@@ -4,7 +4,7 @@ import Rules from '@/components/Rules.vue';
 import Contact from '@/components/Contact.vue';
 import Lobby from '@/components/Lobby.vue';
 import Game from '@/components/Game.vue';
-import {default as Minesweeper} from '@/app/minesweeper/game';
+import {default as Minesweeper} from '@/app/minesweeper/minesweeper';
 import Login from '@/components/Login.vue';
 import NewMatch from '@/components/NewMatch.vue';
 import PlayVsComputer from '@/components/PlayVsComputer.vue';

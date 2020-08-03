@@ -3,8 +3,8 @@
         <div class="game-dashboard level">
             <div class="level-left level-item">
                 <players-dashboard
-                        v-bind:players="this.game.players"
-                        v-bind:cells-to-open-count="game.cellsToOpenCount"
+                        v-bind:players="minesweeper.players"
+                        v-bind:cells-to-open-count="minesweeper.cellsToOpenCount"
                         v-bind:player-lives-count="lives"
                 ></players-dashboard>
             </div>
@@ -38,7 +38,7 @@
             </template>
 
             <template v-slot:result>
-                <div v-if="game.state === GameState.Finished" class="game-result-overlay">
+                <div v-if="minesweeper.state === GameState.Finished" class="game-result-overlay">
                     <div class="title is-1 has-text-white">Game over</div>
                 </div>
             </template>
@@ -51,7 +51,7 @@
     import Cell from "@/app/minesweeper/cell";
     import CellSquare from "@/components/CellSquare.vue";
     import Camera from "@/components/Camera.vue";
-    import Game from "@/app/minesweeper/game";
+    import Minesweeper from "@/app/minesweeper/minesweeper";
     import Player from "@/app/minesweeper/player";
     import {GameState, PlayerState} from '@/app/minesweeper/enum';
     import PlayersDashboard from "@/components/PlayersDashboard.vue";
@@ -71,7 +71,7 @@
         @Prop() lives: number;
 
         cells: Cell[][] = [];
-        private game: Game;
+        private minesweeper: Minesweeper;
         private currentPlayer: Player;
         private GameState = GameState;
         private PlayerState = PlayerState;
@@ -98,7 +98,7 @@
                 .setLives(this.lives)
                 .setSpeed(this.speed);
 
-            this.game = GameBuilder
+            this.minesweeper = GameBuilder
                 .newInstance()
                 .setWidth(this.width)
                 .setHeight(this.height)
@@ -109,20 +109,20 @@
                 .create();
 
             // todo how to do this more gracefully?
-            this.game.players.map(player => {
+            this.minesweeper.players.map(player => {
                 if (!(player instanceof ComputerPlayer)) {
                     this.currentPlayer = player;
                 }
             });
 
-            // init game
-            this.game.initialize();
-            this.cells = this.game.cells;
+            // init minesweeper
+            this.minesweeper.initialize();
+            this.cells = this.minesweeper.cells;
 
-            // start game
-            this.game.start();
+            // start minesweeper
+            this.minesweeper.start();
             // todo how to do this more gracefully?
-            this.game.players.map(player => {
+            this.minesweeper.players.map(player => {
                 if (player instanceof ComputerPlayer) {
                     player.playGame();
                 }
@@ -131,17 +131,17 @@
 
         restartGame(): void {
             // drop references so Vue can update dashboard component
-            this.game.players = [];
+            this.minesweeper.players = [];
             this.startGame();
         }
 
         onFlagCell(cell: Cell): void {
-            this.game.setCellFlagged(cell, !cell.isFlagged(), this.currentPlayer);
+            this.minesweeper.setCellFlagged(cell, !cell.isFlagged(), this.currentPlayer);
         }
 
         onOpenCell(cell: Cell): void {
             if (!cell.isOpened()) {
-                this.game.openCell(cell, this.currentPlayer);
+                this.minesweeper.openCell(cell, this.currentPlayer);
 
                 return;
             }
@@ -152,8 +152,8 @@
                     return;
                 }
 
-                for (const neighbourCell of this.game.iterateNeighbours(cell)) {
-                    this.game.openCell(neighbourCell, this.currentPlayer);
+                for (const neighbourCell of this.minesweeper.iterateNeighbours(cell)) {
+                    this.minesweeper.openCell(neighbourCell, this.currentPlayer);
                 }
             }
         }
