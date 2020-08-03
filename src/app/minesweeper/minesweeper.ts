@@ -110,14 +110,6 @@ export default class Minesweeper {
         }
     }
 
-    playerExplodes(player: Player, cell: Cell): void {
-        cell.explode();
-        player.lives--;
-        if (player.lives === 0) {
-            this.setPlayerLost(player);
-        }
-    }
-
     *iterateNeighbours(cell: Cell): Generator<Cell> {
         for (let i = cell.x - 1; i <= cell.x + 1; i++) {
             if (!this.isXInsideTheField(i)) {
@@ -135,6 +127,14 @@ export default class Minesweeper {
 
                 yield this.cells[i][j];
             }
+        }
+    }
+
+    private playerExplodes(player: Player, cell: Cell): void {
+        cell.explode();
+        player.lives--;
+        if (player.lives === 0) {
+            this.setPlayerLost(player);
         }
     }
 

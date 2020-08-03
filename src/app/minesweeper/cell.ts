@@ -34,9 +34,6 @@ export default class Cell {
         this.opened = true;
         this.openedBy = playerOpened;
         playerOpened.incOpenedCellsCount();
-        if (this.game.cellsToOpenCount === playerOpened.getOpenedCellsCount()) {
-            this.game.setPlayerWon(playerOpened);
-        }
     }
 
     isOpened(): boolean {

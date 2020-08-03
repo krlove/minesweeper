@@ -27,6 +27,9 @@ export default class Player {
 
     incOpenedCellsCount(cellsOpened = 1): void {
         this.openedCellsCount += cellsOpened;
+        if (this.game.cellsToOpenCount === this.openedCellsCount) {
+            this.game.setPlayerWon(this);
+        }
     }
 
     getOpenedCellsCount(): number {
