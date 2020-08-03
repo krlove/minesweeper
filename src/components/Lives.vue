@@ -9,7 +9,7 @@
         >
             <i
                     class="mdi mdi-24px"
-                    v-bind:class="{ 'mdi-star': n <= value, 'mdi-star-outline': n > value }"
+                    v-bind:class="{ 'mdi-heart': n <= value, 'mdi-heart-outline': n > value }"
             />
         </span>
     </div>
