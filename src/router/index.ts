@@ -3,12 +3,12 @@ import VueRouter, {Route, RouteConfig} from 'vue-router'
 import Rules from '@/components/Rules.vue';
 import Contact from '@/components/Contact.vue';
 import Lobby from '@/components/Lobby.vue';
-import Game from '@/components/Game.vue';
 import {default as Minesweeper} from '@/app/minesweeper/minesweeper';
 import Login from '@/components/Login.vue';
 import NewMatch from '@/components/NewMatch.vue';
 import PlayVsComputer from '@/components/PlayVsComputer.vue';
 import MatchLobby from '@/components/MatchLobby.vue';
+import GameField from '@/components/GameField.vue';
 
 Vue.use(VueRouter);
 
@@ -34,7 +34,7 @@ const routes: Array<RouteConfig> = [
     },
     {
         path: '/computer',
-        component: Game,
+        component: GameField,
         props: function($route) {
             let width = $route.query.width ? parseInt($route.query.width) : 30;
             let height = $route.query.height ? parseInt($route.query.height) : 20;

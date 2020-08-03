@@ -1,48 +1,50 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-    <div class="game">
-        <div class="game-dashboard level">
-            <div class="level-left level-item">
-                <players-dashboard
-                        v-bind:players="minesweeper.players"
-                        v-bind:cells-to-open-count="minesweeper.cellsToOpenCount"
-                        v-bind:player-lives-count="lives"
-                ></players-dashboard>
-            </div>
-            <div class="level-right level-item">
-                <div class="buttons">
-                    <button class="button is-small" v-on:click="restartGame()">Restart</button>
-                    <router-link tag="button" class="button is-small" :to="{ path: '/play' }">Quit game</router-link>
+    <div class="box">
+        <div class="game">
+            <div class="game-dashboard level">
+                <div class="level-left level-item">
+                    <players-dashboard
+                            v-bind:players="minesweeper.players"
+                            v-bind:cells-to-open-count="minesweeper.cellsToOpenCount"
+                            v-bind:player-lives-count="lives"
+                    ></players-dashboard>
+                </div>
+                <div class="level-right level-item">
+                    <div class="buttons">
+                        <button class="button is-small" v-on:click="restartGame()">Restart</button>
+                        <router-link tag="button" class="button is-small" :to="{ path: '/play' }">Quit game</router-link>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <camera
-                class="game-camera"
-                v-bind:scene-width="width * 30"
-                v-bind:scene-height="height * 30"
-        >
-            <template v-slot:field>
-                <div class="game-field">
-                    <template v-for="(row, i) in cells">
-                        <template v-for="(cell, j) in row">
-                            <cell-square
-                                    v-bind:cell="cell"
-                                    :key="i + '-' + j"
-                                    v-on:open-cell="onOpenCell"
-                                    v-on:flag-cell="onFlagCell"
-                            >
-                            </cell-square>
+            <camera
+                    class="game-camera"
+                    v-bind:scene-width="width * 30"
+                    v-bind:scene-height="height * 30"
+            >
+                <template v-slot:field>
+                    <div class="game-field">
+                        <template v-for="(row, i) in cells">
+                            <template v-for="(cell, j) in row">
+                                <cell-square
+                                        v-bind:cell="cell"
+                                        :key="i + '-' + j"
+                                        v-on:open-cell="onOpenCell"
+                                        v-on:flag-cell="onFlagCell"
+                                >
+                                </cell-square>
+                            </template>
                         </template>
-                    </template>
-                </div>
-            </template>
+                    </div>
+                </template>
 
-            <template v-slot:result>
-                <div v-if="minesweeper.state === GameState.Finished" class="game-result-overlay">
-                    <div class="title is-1 has-text-white">Game over</div>
-                </div>
-            </template>
-        </camera>
+                <template v-slot:result>
+                    <div v-if="minesweeper.state === GameState.Finished" class="game-result-overlay">
+                        <div class="title is-1 has-text-white">Game over</div>
+                    </div>
+                </template>
+            </camera>
+        </div>
     </div>
 </template>
 
