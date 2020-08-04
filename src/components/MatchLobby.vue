@@ -108,7 +108,6 @@
             }
 
             this.matchRoom = matchRoom;
-
             this.matchRoom.onStateChange((state) => {
                 this.width = state.width;
                 this.height = state.height;
@@ -117,12 +116,12 @@
             });
 
             const self = this;
-            this.matchRoom.state.users.onAdd = function (stateUser: any, id: string) {
+            this.matchRoom.state.players.onAdd = (stateUser: any, id: string) => {
                 const user = new User(id, stateUser.username);
                 self.users.push(user);
             };
 
-            this.matchRoom.state.users.onRemove = function (stateUser: any, id: string) {
+            this.matchRoom.state.players.onRemove = (stateUser: any, id: string) => {
                 const index = self.users.findIndex(user => user.id === id);
                 self.users.splice(index, 1);
             };
