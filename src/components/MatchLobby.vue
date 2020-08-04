@@ -3,7 +3,7 @@
         <div class="column is-half">
             <div class="box px-6 py-6">
                 <div v-if="matchRoom">
-                    <div class="mb-5">
+                    <div v-if="gameState === GameState.Uninitialized" class="mb-5">
                         <div class="columns">
                             <div class="column is-5 has-text-centered">
                                 <span class="title is-5" v-if="users[0] !== undefined">{{ users[0].username }}</span>
@@ -55,13 +55,19 @@
                             </div>
                         </div>
                     </div>
+
+                    <div v-if="gameState === GameState.Started">
+                        <div class="box">
+                            <span class="has-text-success">Game started</span>
+                        </div>
+                    </div>
                 </div>
                 <div v-if="error">
                     <span class="has-text-danger">{{ error }}</span>
                 </div>
 
                 <div class="buttons">
-                    <router-link tag="button" class="button" :to="{ path: '/' }" :disabled="users.length < 2">Start</router-link>
+                    <button class="button" v-on:click="startGame()" :disabled="users.length < 2">Start</button>
                     <router-link tag="button" class="button" :to="{ path: '/lobby' }">Cancel</router-link>
                 </div>
             </div>
@@ -75,6 +81,7 @@
     import {Room} from 'colyseus.js';
     import User from "@/app/multiplayer/model/user";
     import Message from "@/app/multiplayer/model/message";
+    import {GameState} from "@/app/minesweeper/enum";
 
     @Component
     export default class MatchLobby extends Vue {
@@ -84,10 +91,12 @@
         message = '';
         messages: Message[] = [];
         users: User[] = [];
+        gameState = GameState.Uninitialized;
         width = 0;
         height = 0;
         mines = 0;
         lives = 0;
+        GameState = GameState;
 
         async created(): Promise<void> {
             let matchRoom = ClientStore.getRoom(this.matchId);
@@ -113,6 +122,7 @@
                 this.height = state.height;
                 this.mines = state.mines;
                 this.lives = state.lives;
+                this.gameState = state.gameState;
             });
 
             const self = this;
@@ -153,6 +163,10 @@
                 this.matchRoom.leave();
                 ClientStore.removeRoom(this.matchId);
             }
+        }
+
+        startGame(): void {
+            this.matchRoom.send('game.start');
         }
     }
 </script>
