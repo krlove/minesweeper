@@ -48,7 +48,16 @@ export default class MultiplayerMinesweeper extends Minesweeper {
             this.cells[stateCell.x][stateCell.y] = cell;
         });
 
-        // todo start listening for open/flag
+        this.room.state.cells.onChange = (stateCell: any,) => {
+            const cell = this.cells[stateCell.x][stateCell.y];
+            const playerOpened = this.players.find(p => p.id === stateCell.openedBy);
+            if (playerOpened) {
+                cell.setOpened(playerOpened);
+            }
+        };
+
+/*        this.room.onMessage('cell.opened', (message) => {
+        });*/
     }
 
     openCell(cell: Cell, player: Player, hasOpenedNeighbourCell: number): Cell[] {
@@ -56,7 +65,6 @@ export default class MultiplayerMinesweeper extends Minesweeper {
             x: cell.x,
             y: cell.y,
         });
-        console.log('Cell opened', cell.x, cell.y);
 
         return [];
     }
