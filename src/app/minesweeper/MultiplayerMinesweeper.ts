@@ -29,7 +29,6 @@ export default class MultiplayerMinesweeper extends Minesweeper {
         Object.keys(state.cells).forEach(key => {
             const stateCell = state.cells[key];
             const cell = new Cell(stateCell.x, stateCell.y, this);
-            // todo set opened by
             cell.setHasMine(stateCell.hasMine);
             cell.setFlagged(stateCell.flagged);
             cell.neighbourMinesCount = stateCell.neighbourMinesCount;
@@ -50,14 +49,20 @@ export default class MultiplayerMinesweeper extends Minesweeper {
 
         this.room.state.cells.onChange = (stateCell: any,) => {
             const cell = this.cells[stateCell.x][stateCell.y];
-            const playerOpened = this.players.find(p => p.id === stateCell.openedBy);
-            if (playerOpened) {
-                cell.setOpened(playerOpened);
+
+            // cell has been opened
+            if (cell.isOpened() !== stateCell.opened) {
+                // todo check explosion
+                const playerOpened = this.players.find(p => p.id === stateCell.openedBy);
+                if (playerOpened) {
+                    cell.setOpened(playerOpened);
+                }
+            }
+
+            if (cell.isFlagged() !== stateCell.flagged) {
+                cell.setFlagged(stateCell.flagged);
             }
         };
-
-/*        this.room.onMessage('cell.opened', (message) => {
-        });*/
     }
 
     openCell(cell: Cell, player: Player, hasOpenedNeighbourCell: number): Cell[] {
@@ -70,6 +75,10 @@ export default class MultiplayerMinesweeper extends Minesweeper {
     }
 
     setCellFlagged(cell: Cell, flagged: boolean, player: Player): void {
-        console.log('Flagging cell', cell.x, cell.y);
+        this.room.send('cell.flag', {
+            x: cell.x,
+            y: cell.y,
+            flagged: flagged,
+        });
     }
 }
