@@ -50,18 +50,17 @@
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
-    import Cell from "@/app/minesweeper/cell";
+    import Cell from "@/app/minesweeper/Cell";
     import CellSquare from "@/components/CellSquare.vue";
     import Camera from "@/components/Camera.vue";
-    import SingleplayerMinesweeper from "@/app/minesweeper/SingleplayerMinesweeper";
-    import Player from "@/app/minesweeper/player";
+    import Player from "@/app/minesweeper/Player";
     import {GameState, OpenedNeighbourCells, PlayerState} from "@/app/minesweeper/enum";
     import PlayersDashboard from "@/components/PlayersDashboard.vue";
-    import GameBuilder from "@/app/minesweeper/game-builder";
-    import PlayerBuilder from "@/app/minesweeper/player-builder";
-    import ComputerPlayerBuilder from "@/app/minesweeper/computer-player-builder";
-    import ComputerPlayer from "@/app/minesweeper/computer-player";
-    import ClientStore from "@/app/multiplayer/client-store";
+    import GameBuilder from "@/app/minesweeper/GameBuilder";
+    import PlayerBuilder from "@/app/minesweeper/PlayerBuilder";
+    import ComputerPlayerBuilder from "@/app/minesweeper/ComputerPlayerBuilder";
+    import ComputerPlayer from "@/app/minesweeper/ComputerPlayer";
+    import ClientStore from "@/app/multiplayer/ClientStore";
     import MultiplayerMinesweeper from "@/app/minesweeper/MultiplayerMinesweeper";
     import Minesweeper from "@/app/minesweeper/Minesweeper";
 

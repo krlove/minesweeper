@@ -1,7 +1,7 @@
 import {Room} from 'colyseus.js';
 import Minesweeper from '@/app/minesweeper/Minesweeper';
-import Player from '@/app/minesweeper/player';
-import Cell from '@/app/minesweeper/cell';
+import Player from '@/app/minesweeper/Player';
+import Cell from '@/app/minesweeper/Cell';
 
 export default class MultiplayerMinesweeper extends Minesweeper {
     private room: Room;

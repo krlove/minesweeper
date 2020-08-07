@@ -1,4 +1,4 @@
-import User from '@/app/multiplayer/model/user';
+import User from '@/app/multiplayer/model/User';
 
 export default class Message {
     author: User;

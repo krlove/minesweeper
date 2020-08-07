@@ -1,5 +1,5 @@
-import PlayerBuilder from '@/app/minesweeper/player-builder';
-import ComputerPlayer from '@/app/minesweeper/computer-player';
+import PlayerBuilder from '@/app/minesweeper/PlayerBuilder';
+import ComputerPlayer from '@/app/minesweeper/ComputerPlayer';
 
 export default class ComputerPlayerBuilder extends PlayerBuilder {
     protected speed: number;

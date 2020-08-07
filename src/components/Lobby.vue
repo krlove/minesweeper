@@ -71,10 +71,10 @@
 
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
-    import User from '@/app/multiplayer/model/user';
-    import Message from '@/app/multiplayer/model/message';
+    import User from '@/app/multiplayer/model/User';
+    import Message from '@/app/multiplayer/model/Message';
     import {Client, Room} from "colyseus.js";
-    import ClientStore from '@/app/multiplayer/client-store';
+    import ClientStore from '@/app/multiplayer/ClientStore';
     import Match from "@/app/multiplayer/model/Match";
 
     @Component

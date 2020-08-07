@@ -1,7 +1,7 @@
-import Cell from './cell';
-import {GameState, OpenedNeighbourCells, PlayerState} from './enum';
-import Player from "@/app/minesweeper/player";
+import {GameState, OpenedNeighbourCells, PlayerState} from '@/app/minesweeper/enum';
+import Player from "@/app/minesweeper/Player";
 import Minesweeper from '@/app/minesweeper/Minesweeper';
+import Cell from '@/app/minesweeper/Cell';
 
 export default class SingleplayerMinesweeper extends Minesweeper {
 

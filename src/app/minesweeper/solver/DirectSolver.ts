@@ -1,8 +1,8 @@
-import {DoublyLinkedList, Node} from "@/app/util/doubly-linked-list";
-import Cell from "@/app/minesweeper/cell";
+import {DoublyLinkedList, Node} from "@/app/util/DoublyLinkedList";
+import Cell from "@/app/minesweeper/Cell";
 import SingleplayerMinesweeper from "@/app/minesweeper/SingleplayerMinesweeper";
-import Action from "@/app/minesweeper/solver/action";
-import ComputerPlayer from '@/app/minesweeper/computer-player';
+import Action from "@/app/minesweeper/solver/Action";
+import ComputerPlayer from '@/app/minesweeper/ComputerPlayer';
 
 export default class DirectSolver {
     private game: SingleplayerMinesweeper;

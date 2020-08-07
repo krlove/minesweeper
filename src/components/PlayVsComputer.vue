@@ -17,6 +17,7 @@
     import {Component, Vue} from "vue-property-decorator";
     import GameOptions from '@/components/GameOptions.vue';
     import {GameConfig} from "@/components/types/GameConfig";
+
     @Component({
         components: {GameOptions}
     })

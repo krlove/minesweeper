@@ -1,4 +1,4 @@
-import Player from "@/app/minesweeper/player";
+import Player from "@/app/minesweeper/Player";
 import Minesweeper from '@/app/minesweeper/Minesweeper';
 import SingleplayerMinesweeper from '@/app/minesweeper/SingleplayerMinesweeper';
 

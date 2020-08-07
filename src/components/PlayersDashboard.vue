@@ -23,9 +23,10 @@
 
 <script lang="ts">
     import {Component, Prop, Vue} from "vue-property-decorator";
-    import {PlayerState} from "../app/minesweeper/enum";
+    import {PlayerState} from "@/app/minesweeper/enum";
     import Lives from "@/components/Lives.vue";
-    import Player from "@/app/minesweeper/player";
+    import Player from "@/app/minesweeper/Player";
+
     @Component({
         components: {Lives}
     })

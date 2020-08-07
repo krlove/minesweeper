@@ -17,7 +17,7 @@
     import {Component, Vue} from "vue-property-decorator";
     import {GameConfig} from '@/components/types/GameConfig';
     import GameOptions from '@/components/GameOptions.vue';
-    import ClientStore from "@/app/multiplayer/client-store";
+    import ClientStore from "@/app/multiplayer/ClientStore";
 
     @Component({
         components: {GameOptions}

@@ -78,10 +78,10 @@
 
 <script lang="ts">
     import {Component, Prop, Vue} from "vue-property-decorator";
-    import ClientStore from "@/app/multiplayer/client-store";
+    import ClientStore from "@/app/multiplayer/ClientStore";
     import {Room} from 'colyseus.js';
-    import User from "@/app/multiplayer/model/user";
-    import Message from "@/app/multiplayer/model/message";
+    import User from "@/app/multiplayer/model/User";
+    import Message from "@/app/multiplayer/model/Message";
     import {GameState} from "@/app/minesweeper/enum";
     import GameField from '@/components/GameField.vue';
     @Component({

@@ -1,4 +1,4 @@
-import Player from '@/app/minesweeper/player';
+import Player from '@/app/minesweeper/Player';
 import SingleplayerMinesweeper from '@/app/minesweeper/SingleplayerMinesweeper';
 
 export default class PlayerBuilder {

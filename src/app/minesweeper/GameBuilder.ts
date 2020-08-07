@@ -1,5 +1,5 @@
 import SingleplayerMinesweeper from '@/app/minesweeper/SingleplayerMinesweeper';
-import PlayerBuilder from '@/app/minesweeper/player-builder';
+import PlayerBuilder from '@/app/minesweeper/PlayerBuilder';
 
 export default class GameBuilder {
     private width: number;

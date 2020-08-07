@@ -1,4 +1,4 @@
-import Cell from "@/app/minesweeper/cell";
+import Cell from "@/app/minesweeper/Cell";
 
 export enum ActionType {
     Open = 0,

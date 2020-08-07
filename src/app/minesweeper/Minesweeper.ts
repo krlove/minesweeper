@@ -1,6 +1,6 @@
 import {GameState} from '@/app/minesweeper/enum';
-import Cell from '@/app/minesweeper/cell';
-import Player from '@/app/minesweeper/player';
+import Cell from '@/app/minesweeper/Cell';
+import Player from '@/app/minesweeper/Player';
 
 export default abstract class Minesweeper {
     static readonly startingLocationRadius = 3;

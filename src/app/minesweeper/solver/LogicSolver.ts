@@ -1,9 +1,9 @@
-import Cell from "@/app/minesweeper/cell";
+import Cell from "@/app/minesweeper/Cell";
 import {combinations} from "@/app/util/k_combinations";
 import SingleplayerMinesweeper from "@/app/minesweeper/SingleplayerMinesweeper";
 import * as logic from "logicjs/logic";
-import Action from "@/app/minesweeper/solver/action";
-import ComputerPlayer from '@/app/minesweeper/computer-player';
+import Action from "@/app/minesweeper/solver/Action";
+import ComputerPlayer from '@/app/minesweeper/ComputerPlayer';
 
 class Probability {
     cell: Cell;

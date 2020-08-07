@@ -1,4 +1,4 @@
-import Cell from "@/app/minesweeper/cell";
+import Cell from "@/app/minesweeper/Cell";
 import {PlayerState} from "@/app/minesweeper/enum";
 import Minesweeper from '@/app/minesweeper/Minesweeper';
 import SingleplayerMinesweeper from '@/app/minesweeper/SingleplayerMinesweeper';

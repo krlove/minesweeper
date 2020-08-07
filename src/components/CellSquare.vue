@@ -36,7 +36,7 @@
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
-    import Cell from "@/app/minesweeper/cell";
+    import Cell from "@/app/minesweeper/Cell";
 
     @Component
     export default class CellSquare extends Vue {
