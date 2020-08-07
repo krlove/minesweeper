@@ -6,7 +6,7 @@
                     <players-dashboard
                             v-bind:players="minesweeper.players"
                             v-bind:cells-to-open-count="minesweeper.cellsToOpenCount"
-                            v-bind:player-lives-count="lives"
+                            v-bind:player-lives-count="minesweeper.lives"
                     ></players-dashboard>
                 </div>
                 <div class="level-right level-item">
@@ -19,8 +19,8 @@
 
             <camera
                     class="game-camera"
-                    v-bind:scene-width="width * 30"
-                    v-bind:scene-height="height * 30"
+                    v-bind:scene-width="sceneWidth"
+                    v-bind:scene-height="sceneHeight"
             >
                 <template v-slot:field>
                     <div class="game-field">
@@ -53,14 +53,17 @@
     import Cell from "@/app/minesweeper/cell";
     import CellSquare from "@/components/CellSquare.vue";
     import Camera from "@/components/Camera.vue";
-    import Minesweeper from "@/app/minesweeper/minesweeper";
+    import SingleplayerMinesweeper from "@/app/minesweeper/SingleplayerMinesweeper";
     import Player from "@/app/minesweeper/player";
-    import {GameState, PlayerState} from '@/app/minesweeper/enum';
+    import {GameState, OpenedNeighbourCells, PlayerState} from "@/app/minesweeper/enum";
     import PlayersDashboard from "@/components/PlayersDashboard.vue";
     import GameBuilder from "@/app/minesweeper/game-builder";
     import PlayerBuilder from "@/app/minesweeper/player-builder";
     import ComputerPlayerBuilder from "@/app/minesweeper/computer-player-builder";
     import ComputerPlayer from "@/app/minesweeper/computer-player";
+    import ClientStore from "@/app/multiplayer/client-store";
+    import MultiplayerMinesweeper from "@/app/minesweeper/MultiplayerMinesweeper";
+    import Minesweeper from "@/app/minesweeper/Minesweeper";
 
     @Component({
         components: {PlayersDashboard, Camera, CellSquare}
@@ -71,64 +74,88 @@
         @Prop() mines: number;
         @Prop() speed: number;
         @Prop() lives: number;
+        @Prop() isMultiplayer: boolean;
+        @Prop() matchId: string;
 
         cells: Cell[][] = [];
         private minesweeper: Minesweeper;
         private currentPlayer: Player;
         private GameState = GameState;
         private PlayerState = PlayerState;
+        private sceneWidth = 0;
+        private sceneHeight = 0;
 
         created() {
+            if (this.width) {
+                this.sceneWidth = this.width * 30;
+            }
+            if (this.height) {
+                this.sceneHeight = this.height * 30;
+            }
+
             this.startGame();
         }
 
         startGame(): void {
-            const humanPlayerBuilder = PlayerBuilder
-                .newInstance()
-                .setName('You')
-                .setColor('#ffffff')
-                .setStartingCellX(0)
-                .setStartingCellY(0)
-                .setLives(this.lives);
+            if (!this.isMultiplayer) {
+                const humanPlayerBuilder = PlayerBuilder
+                    .newInstance()
+                    .setName('You')
+                    .setColor('#ffffff')
+                    .setStartingCellX(0)
+                    .setStartingCellY(0)
+                    .setLives(this.lives);
 
-            const computerPlayerBuilder = ComputerPlayerBuilder
-                .newInstance()
-                .setName('Computer')
-                .setColor('#ECB998')
-                .setStartingCellX(this.width - 1)
-                .setStartingCellY(this.height - 1)
-                .setLives(this.lives)
-                .setSpeed(this.speed);
+                const computerPlayerBuilder = ComputerPlayerBuilder
+                    .newInstance()
+                    .setName('Computer')
+                    .setColor('#ECB998')
+                    .setStartingCellX(this.width - 1)
+                    .setStartingCellY(this.height - 1)
+                    .setLives(this.lives)
+                    .setSpeed(this.speed);
 
-            this.minesweeper = GameBuilder
-                .newInstance()
-                .setWidth(this.width)
-                .setHeight(this.height)
-                .setMinesRandomPlacement(true)
-                .setMines(this.mines)
-                .addPlayerBuilder(humanPlayerBuilder)
-                .addPlayerBuilder(computerPlayerBuilder)
-                .create();
+                this.minesweeper = GameBuilder
+                    .newInstance()
+                    .setWidth(this.width)
+                    .setHeight(this.height)
+                    .setMinesRandomPlacement(true)
+                    .setMines(this.mines)
+                    .setLives(this.lives)
+                    .addPlayerBuilder(humanPlayerBuilder)
+                    .addPlayerBuilder(computerPlayerBuilder)
+                    .create();
 
-            // todo how to do this more gracefully?
-            this.minesweeper.players.map(player => {
-                if (!(player instanceof ComputerPlayer)) {
-                    this.currentPlayer = player;
+                // todo how to do this more gracefully?
+                this.minesweeper.players.map(player => {
+                    if (!(player instanceof ComputerPlayer)) {
+                        this.currentPlayer = player;
+                    }
+                });
+
+                // init minesweeper
+                this.minesweeper.initialize();
+                this.cells = this.minesweeper.cells;
+
+                // start minesweeper
+                this.minesweeper.start();
+                // todo how to do this more gracefully?
+                this.minesweeper.players.map(player => {
+                    if (player instanceof ComputerPlayer) {
+                        player.playGame();
+                    }
+                });
+            } else {
+                const matchRoom = ClientStore.getRoom(this.matchId);
+                if (!matchRoom) {
+                    throw new Error('Match not found');
                 }
-            });
 
-            // init minesweeper
-            this.minesweeper.initialize();
-            this.cells = this.minesweeper.cells;
-
-            // start minesweeper
-            this.minesweeper.start();
-            // todo how to do this more gracefully?
-            this.minesweeper.players.map(player => {
-                if (player instanceof ComputerPlayer) {
-                    player.playGame();
-                }
-            });
+                this.minesweeper = new MultiplayerMinesweeper(matchRoom);
+                this.cells = this.minesweeper.cells;
+                this.sceneWidth = this.minesweeper.width * 30;
+                this.sceneHeight = this.minesweeper.height * 30;
+            }
         }
 
         restartGame(): void {
@@ -142,22 +169,7 @@
         }
 
         onOpenCell(cell: Cell): void {
-            if (!cell.isOpened()) {
-                this.minesweeper.openCell(cell, this.currentPlayer);
-
-                return;
-            }
-
-            if (cell.isOpened() && cell.neighbourMinesCount > 0 && !cell.getHasMine()) {
-                const flaggedOrExplodedNeighbourCellsCount = cell.getFlaggedOrExplodedNeighbourCellsCount();
-                if (flaggedOrExplodedNeighbourCellsCount !== cell.neighbourMinesCount) {
-                    return;
-                }
-
-                for (const neighbourCell of this.minesweeper.iterateNeighbours(cell)) {
-                    this.minesweeper.openCell(neighbourCell, this.currentPlayer);
-                }
-            }
+            this.minesweeper.openCell(cell, this.currentPlayer, OpenedNeighbourCells.Unknown);
         }
     }
 </script>

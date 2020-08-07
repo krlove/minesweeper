@@ -1,5 +1,6 @@
 import Player from "@/app/minesweeper/player";
-import Minesweeper from "@/app/minesweeper/minesweeper";
+import Minesweeper from '@/app/minesweeper/Minesweeper';
+import SingleplayerMinesweeper from '@/app/minesweeper/SingleplayerMinesweeper';
 
 export default class Cell {
     public x: number;
@@ -21,8 +22,10 @@ export default class Cell {
     setHasMine(hasMine: boolean): void {
         this.hasMine = hasMine;
 
-        for (const neighbourCell of this.game.iterateNeighbours(this)) {
-            neighbourCell.neighbourMinesCount += this.hasMine ? 1 : -1;
+        if (this.game instanceof SingleplayerMinesweeper) {
+            for (const neighbourCell of this.game.iterateNeighbours(this)) {
+                neighbourCell.neighbourMinesCount += this.hasMine ? 1 : -1;
+            }
         }
     }
 
@@ -33,7 +36,9 @@ export default class Cell {
     setOpened(playerOpened: Player): void {
         this.opened = true;
         this.openedBy = playerOpened;
-        playerOpened.incOpenedCellsCount();
+        if (this.game instanceof SingleplayerMinesweeper) {
+            playerOpened.incOpenedCellsCount();
+        }
     }
 
     isOpened(): boolean {

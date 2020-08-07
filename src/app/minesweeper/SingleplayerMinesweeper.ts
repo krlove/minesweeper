@@ -1,28 +1,19 @@
 import Cell from './cell';
 import {GameState, OpenedNeighbourCells, PlayerState} from './enum';
 import Player from "@/app/minesweeper/player";
+import Minesweeper from '@/app/minesweeper/Minesweeper';
 
-export default class Minesweeper {
-    static readonly startingLocationRadius = 3;
+export default class SingleplayerMinesweeper extends Minesweeper {
 
-    state: GameState = GameState.Uninitialized;
-    width: number;
-    height: number;
-    mines: number;
-    cells: Cell[][] = [];
-    players: Player[] = [];
-    cellsToOpenCount: number;
-
-    constructor(width: number, height: number) {
+    constructor(width: number, height: number, mines: number, lives: number) {
+        super();
         this.width = width;
         this.height = height;
+        this.mines = mines;
+        this.lives = lives;
         this.players = [];
 
         this.createCells();
-    }
-
-    setMines(mines: number): void {
-        this.mines = mines;
     }
 
     initialize(): void {
@@ -55,7 +46,23 @@ export default class Minesweeper {
             return [];
         }
 
-        return this.doOpenCell(cell, player, hasOpenedNeighbourCell);
+        if (!cell.isOpened()) {
+            return this.doOpenCell(cell, player, hasOpenedNeighbourCell);
+        }
+
+        if (cell.isOpened() && cell.neighbourMinesCount > 0 && !cell.isExploded()) {
+            const flaggedOrExplodedNeighbourCellsCount = cell.getFlaggedOrExplodedNeighbourCellsCount();
+            if (flaggedOrExplodedNeighbourCellsCount !== cell.neighbourMinesCount) {
+                return [];
+            }
+
+            let openedCells: Cell[] = [];
+            for (const neighbourCell of this.iterateNeighbours(cell)) {
+                openedCells = openedCells.concat(this.doOpenCell(neighbourCell, player, hasOpenedNeighbourCell));
+            }
+
+            return openedCells;
+        }
     }
 
     setCellFlagged(cell: Cell, flagged: boolean, player: Player): void {
@@ -130,20 +137,20 @@ export default class Minesweeper {
         }
     }
 
-    private playerExplodes(player: Player, cell: Cell): void {
-        cell.explode();
-        player.lives--;
-        if (player.lives === 0) {
-            this.setPlayerLost(player);
-        }
-    }
-
     private isXInsideTheField(x: number): boolean {
         return x >= 0 && x < this.width;
     }
 
     private isYInsideTheField(y: number): boolean {
         return y >= 0 && y < this.height;
+    }
+
+    private playerExplodes(player: Player, cell: Cell): void {
+        cell.explode();
+        player.lives--;
+        if (player.lives === 0) {
+            this.setPlayerLost(player);
+        }
     }
 
     private doOpenCell(
@@ -192,7 +199,7 @@ export default class Minesweeper {
 
     private placeMines(): void {
         let minesPlaced = 0;
-        const startingLocationRadiusSquare = Math.pow(Minesweeper.startingLocationRadius, 2);
+        const startingLocationRadiusSquare = Math.pow(SingleplayerMinesweeper.startingLocationRadius, 2);
 
         minesLoop:
         while (minesPlaced < this.mines) {

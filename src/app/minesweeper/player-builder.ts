@@ -1,5 +1,5 @@
 import Player from '@/app/minesweeper/player';
-import Minesweeper from '@/app/minesweeper/minesweeper';
+import SingleplayerMinesweeper from '@/app/minesweeper/SingleplayerMinesweeper';
 
 export default class PlayerBuilder {
     protected name: string;
@@ -7,7 +7,7 @@ export default class PlayerBuilder {
     protected startingCellX: number;
     protected startingCellY: number;
     protected lives: number;
-    protected game: Minesweeper;
+    protected game: SingleplayerMinesweeper;
     
     static newInstance(): PlayerBuilder {
         return new PlayerBuilder();
@@ -43,7 +43,7 @@ export default class PlayerBuilder {
         return this;
     }
 
-    setGame(game: Minesweeper): this {
+    setGame(game: SingleplayerMinesweeper): this {
         this.game = game;
 
         return this;

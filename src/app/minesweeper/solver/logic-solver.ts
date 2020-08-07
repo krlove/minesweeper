@@ -1,6 +1,6 @@
 import Cell from "@/app/minesweeper/cell";
 import {combinations} from "@/app/util/k_combinations";
-import Minesweeper from "@/app/minesweeper/minesweeper";
+import SingleplayerMinesweeper from "@/app/minesweeper/SingleplayerMinesweeper";
 import * as logic from "logicjs/logic";
 import Action from "@/app/minesweeper/solver/action";
 import ComputerPlayer from '@/app/minesweeper/computer-player';
@@ -33,11 +33,11 @@ class Probability {
 }
 
 export default class LogicSolver {
-    private game: Minesweeper;
+    private game: SingleplayerMinesweeper;
     private player: ComputerPlayer;
     private internalFlags: boolean[][];
 
-    constructor(game: Minesweeper, player: ComputerPlayer) {
+    constructor(game: SingleplayerMinesweeper, player: ComputerPlayer) {
         this.game = game;
         this.player = player;
         this.internalFlags = this.player.getInternalFlags();

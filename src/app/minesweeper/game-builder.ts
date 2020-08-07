@@ -1,10 +1,11 @@
-import Minesweeper from '@/app/minesweeper/minesweeper';
+import SingleplayerMinesweeper from '@/app/minesweeper/SingleplayerMinesweeper';
 import PlayerBuilder from '@/app/minesweeper/player-builder';
 
 export default class GameBuilder {
     private width: number;
     private height: number;
     private mines: number;
+    private lives: number;
     private minesRandomPlacement = false;
     private playerBuilders: PlayerBuilder[] = [];
 
@@ -29,6 +30,12 @@ export default class GameBuilder {
 
         return this;
     }
+
+    setLives(lives: number): GameBuilder {
+        this.lives = lives;
+
+        return this;
+    }
     
     setMinesRandomPlacement(minesRandomPlacement: boolean): GameBuilder {
         this.minesRandomPlacement = minesRandomPlacement;
@@ -42,11 +49,8 @@ export default class GameBuilder {
         return this;
     }
     
-    create(): Minesweeper {
-        const game = new Minesweeper(this.width, this.height);
-        if (this.minesRandomPlacement) {
-            game.setMines(this.mines);
-        }
+    create(): SingleplayerMinesweeper {
+        const game = new SingleplayerMinesweeper(this.width, this.height, this.mines, this.lives);
 
         this.playerBuilders.map(playerBuilder => {
             playerBuilder.setGame(game);

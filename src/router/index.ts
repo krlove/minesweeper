@@ -3,7 +3,7 @@ import VueRouter, {Route, RouteConfig} from 'vue-router'
 import Rules from '@/components/Rules.vue';
 import Contact from '@/components/Contact.vue';
 import Lobby from '@/components/Lobby.vue';
-import {default as Minesweeper} from '@/app/minesweeper/minesweeper';
+import {default as Minesweeper} from '@/app/minesweeper/SingleplayerMinesweeper';
 import Login from '@/components/Login.vue';
 import NewMatch from '@/components/NewMatch.vue';
 import PlayVsComputer from '@/components/PlayVsComputer.vue';
@@ -48,8 +48,9 @@ const routes: Array<RouteConfig> = [
             mines = Math.max(40, Math.min(maxMines, mines));
             speed = Math.max(1, Math.min(10, speed));
             lives = Math.max(1, Math.min(5, lives));
+            const isMultiplayer = false;
 
-            return { width, height, mines, speed, lives };
+            return { width, height, mines, speed, lives, isMultiplayer };
         },
     },
     {

@@ -1,8 +1,19 @@
 <template>
-    <div class="columns is-centered">
-        <div class="column is-half">
-            <div class="box px-6 py-6">
-                <div v-if="matchRoom">
+    <div>
+        <div v-if="gameState === GameState.Started">
+            <game-field
+                    v-bind:isMultiplayer="true"
+                    v-bind:matchId="matchId"
+            ></game-field>
+        </div>
+
+        <div v-if="gameState !== GameState.Started" class="columns is-centered">
+            <div class="column is-half">
+                <div v-if="error">
+                    <span class="has-text-danger">{{ error }}</span>
+                </div>
+
+                <div class="box px-6 py-6" v-if="matchRoom">
                     <div v-if="gameState === GameState.Uninitialized" class="mb-5">
                         <div class="columns">
                             <div class="column is-5 has-text-centered">
@@ -10,9 +21,9 @@
                                 <span class="title icon" v-else><i class="mdi mdi-24px mdi-account-question"></i></span>
                             </div>
                             <div class="column is-2 has-text-centered">
-                                <span class="icon">
-                                    <i class="mdi mdi-24px mdi-sword-cross"></i>
-                                </span>
+                            <span class="icon">
+                                <i class="mdi mdi-24px mdi-sword-cross"></i>
+                            </span>
                             </div>
                             <div class="column is-5 has-text-centered">
                                 <span class="title is-5" v-if="users[1] !== undefined">{{ users[1].username }}</span>
@@ -48,27 +59,17 @@
                                 </div>
                                 <div class="message-list">
                                     <div v-for="message of messages.slice().reverse()" v-bind:key="message.createdAt.toLocaleString()">
-                                        <span class="has-text-grey-light is-size-7">{{ message.createdAt.toLocaleString() }}</span> <b>{{
-                                        message.author.username }}</b>: <span class="has-text-weight-light">{{ message.body }}</span>
+                                        <span class="has-text-grey-light is-size-7">{{ message.createdAt.toLocaleString() }}</span> <b>{{ message.author.username }}</b>: <span class="has-text-weight-light">{{ message.body }}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div v-if="gameState === GameState.Started">
-                        <div class="box">
-                            <span class="has-text-success">Game started</span>
-                        </div>
+                    <div class="buttons">
+                        <button class="button" v-on:click="startGame()" :disabled="users.length < 2">Start</button>
+                        <router-link tag="button" class="button" :to="{ path: '/lobby' }">Cancel</router-link>
                     </div>
-                </div>
-                <div v-if="error">
-                    <span class="has-text-danger">{{ error }}</span>
-                </div>
-
-                <div class="buttons">
-                    <button class="button" v-on:click="startGame()" :disabled="users.length < 2">Start</button>
-                    <router-link tag="button" class="button" :to="{ path: '/lobby' }">Cancel</router-link>
                 </div>
             </div>
         </div>
@@ -82,8 +83,10 @@
     import User from "@/app/multiplayer/model/user";
     import Message from "@/app/multiplayer/model/message";
     import {GameState} from "@/app/minesweeper/enum";
-
-    @Component
+    import GameField from '@/components/GameField.vue';
+    @Component({
+        components: {GameField}
+    })
     export default class MatchLobby extends Vue {
         @Prop() matchId;
         matchRoom: Room = null;

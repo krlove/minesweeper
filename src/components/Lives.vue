@@ -27,9 +27,7 @@
         @Prop() disabled: boolean;
 
         get range(): number[] {
-            const r = range(1, this.total);
-
-            return r;
+            return range(1, this.total);
         }
 
         onStarClick(n: number): void {
