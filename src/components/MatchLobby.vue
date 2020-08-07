@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="gameState === GameState.Started">
+        <div v-if="gameState === GameState.Started || gameState === GameState.Finished">
             <game-field
                     v-bind:isMultiplayer="true"
                     v-bind:matchId="matchId"

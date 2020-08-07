@@ -16,6 +16,11 @@ export default class MultiplayerMinesweeper extends Minesweeper {
         this.lives = state.lives;
         this.cellsToOpenCount = state.cellsToOpenCount;
 
+        this.room.onStateChange((state) => {
+            this.state = state.gameState;
+            console.log(state.gameState);
+        });
+
         Object.keys(state.players).forEach(key => {
             const statePlayer = state.players[key];
             const player = new Player(statePlayer.username, '#fff');
@@ -25,6 +30,15 @@ export default class MultiplayerMinesweeper extends Minesweeper {
             player.setOpenedCellsCount(statePlayer.openedCellsCount);
             this.players.push(player);
         });
+
+        this.room.state.players.onChange = (statePlayer: any, key: string) => {
+            const player = this.players.find(p => p.id === key);
+            if (!player) {
+                return;
+            }
+            player.lives = statePlayer.lives;
+            player.setOpenedCellsCount(statePlayer.openedCellsCount);
+        };
 
         Object.keys(state.cells).forEach(key => {
             const stateCell = state.cells[key];
@@ -47,7 +61,7 @@ export default class MultiplayerMinesweeper extends Minesweeper {
             this.cells[stateCell.x][stateCell.y] = cell;
         });
 
-        this.room.state.cells.onChange = (stateCell: any,) => {
+        this.room.state.cells.onChange = (stateCell: any) => {
             const cell = this.cells[stateCell.x][stateCell.y];
 
             // cell has been opened
