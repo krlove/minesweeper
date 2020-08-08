@@ -93,10 +93,9 @@ export default class SingleplayerMinesweeper extends Minesweeper {
         player.state = PlayerState.Won;
         for (let i = 0; i < this.players.length; i++) {
             const iteratedPlayer = this.players[i];
-            if (iteratedPlayer === player) {
-                continue;
+            if (iteratedPlayer !== player) {
+                iteratedPlayer.state = PlayerState.Lost;
             }
-            iteratedPlayer.state = PlayerState.Lost;
         }
         this.setState(GameState.Finished);
     }

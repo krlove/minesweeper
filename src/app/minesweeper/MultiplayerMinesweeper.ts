@@ -18,7 +18,6 @@ export default class MultiplayerMinesweeper extends Minesweeper {
 
         this.room.onStateChange((state) => {
             this.state = state.gameState;
-            console.log(state.gameState);
         });
 
         Object.keys(state.players).forEach(key => {
@@ -38,6 +37,7 @@ export default class MultiplayerMinesweeper extends Minesweeper {
             }
             player.lives = statePlayer.lives;
             player.setOpenedCellsCount(statePlayer.openedCellsCount);
+            player.state = statePlayer.playerState;
         };
 
         Object.keys(state.cells).forEach(key => {

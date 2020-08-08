@@ -8,6 +8,7 @@ export default class Player {
     name: string;
     color: string;
     startingCell: Cell;
+    // todo rename this and minesweeper.state
     state: PlayerState;
     lives: number;
     protected game: Minesweeper;
