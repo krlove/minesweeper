@@ -37,7 +37,7 @@ export default class MultiplayerMinesweeper extends Minesweeper {
             }
             player.lives = statePlayer.lives;
             player.setOpenedCellsCount(statePlayer.openedCellsCount);
-            player.state = statePlayer.playerState;
+            player.playerState = statePlayer.playerState;
         };
 
         Object.keys(state.cells).forEach(key => {

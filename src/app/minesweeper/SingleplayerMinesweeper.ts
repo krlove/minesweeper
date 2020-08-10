@@ -33,7 +33,7 @@ export default class SingleplayerMinesweeper extends Minesweeper {
     start(): void {
         this.setState(GameState.Started);
         for (const player of this.players) {
-            player.state = PlayerState.Playing;
+            player.playerState = PlayerState.Playing;
         }
     }
 
@@ -42,7 +42,7 @@ export default class SingleplayerMinesweeper extends Minesweeper {
             return [];
         }
 
-        if (player.state !== PlayerState.Playing && player.state !== PlayerState.Ready) {
+        if (player.playerState !== PlayerState.Playing && player.playerState !== PlayerState.Ready) {
             return [];
         }
 
@@ -70,7 +70,7 @@ export default class SingleplayerMinesweeper extends Minesweeper {
             return;
         }
 
-        if (player.state !== PlayerState.Playing) {
+        if (player.playerState !== PlayerState.Playing) {
             return;
         }
 
@@ -90,21 +90,21 @@ export default class SingleplayerMinesweeper extends Minesweeper {
     }
 
     setPlayerWon(player: Player): void {
-        player.state = PlayerState.Won;
+        player.playerState = PlayerState.Won;
         for (let i = 0; i < this.players.length; i++) {
             const iteratedPlayer = this.players[i];
             if (iteratedPlayer !== player) {
-                iteratedPlayer.state = PlayerState.Lost;
+                iteratedPlayer.playerState = PlayerState.Lost;
             }
         }
         this.setState(GameState.Finished);
     }
 
     setPlayerLost(player: Player): void {
-        player.state = PlayerState.Lost;
+        player.playerState = PlayerState.Lost;
         let atLeastOnePlayerStillPlaying = false;
         for (const iteratedPlayer of this.players) {
-            if (iteratedPlayer.state === PlayerState.Playing) {
+            if (iteratedPlayer.playerState === PlayerState.Playing) {
                 atLeastOnePlayerStillPlaying = true;
 
                 break;

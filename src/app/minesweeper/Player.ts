@@ -8,8 +8,7 @@ export default class Player {
     name: string;
     color: string;
     startingCell: Cell;
-    // todo rename this and minesweeper.state
-    state: PlayerState;
+    playerState: PlayerState;
     lives: number;
     protected game: Minesweeper;
     protected openedCellsCount = 0;
@@ -17,7 +16,7 @@ export default class Player {
     constructor(name: string, color: string) {
         this.name = name;
         this.color = color;
-        this.state = PlayerState.Ready;
+        this.playerState = PlayerState.Ready;
     }
 
     setGame(game: Minesweeper): void {

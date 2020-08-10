@@ -13,8 +13,8 @@
                 ></lives>
             </td>
             <td>
-                <p class="has-text-danger" v-if="player.state === PlayerState.Lost">lost</p>
-                <p class="has-text-success" v-if="player.state === PlayerState.Won">won</p>
+                <p class="has-text-danger" v-if="player.playerState === PlayerState.Lost">lost</p>
+                <p class="has-text-success" v-if="player.playerState === PlayerState.Won">won</p>
             </td>
         </tr>
         </tbody>
