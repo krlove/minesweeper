@@ -100,7 +100,6 @@
                 const humanPlayerBuilder = PlayerBuilder
                     .newInstance()
                     .setName('You')
-                    .setColor('#ffffff')
                     .setStartingCellX(0)
                     .setStartingCellY(0)
                     .setLives(this.lives);
@@ -108,7 +107,6 @@
                 const computerPlayerBuilder = ComputerPlayerBuilder
                     .newInstance()
                     .setName('Computer')
-                    .setColor('#ECB998')
                     .setStartingCellX(this.width - 1)
                     .setStartingCellY(this.height - 1)
                     .setLives(this.lives)

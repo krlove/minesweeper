@@ -1,13 +1,14 @@
 import Player from '@/app/minesweeper/Player';
 import SingleplayerMinesweeper from '@/app/minesweeper/SingleplayerMinesweeper';
+import Palette from '@/app/util/Palette';
 
 export default class PlayerBuilder {
     protected name: string;
-    protected color: string;
     protected startingCellX: number;
     protected startingCellY: number;
     protected lives: number;
     protected game: SingleplayerMinesweeper;
+    protected palette = new Palette(); // todo create addPlayer on Minesweeper and move it there
     
     static newInstance(): PlayerBuilder {
         return new PlayerBuilder();
@@ -15,12 +16,6 @@ export default class PlayerBuilder {
     
     setName(name: string): this {
         this.name = name;
-        
-        return this;
-    }
-    
-    setColor(color: string): this {
-        this.color = color;
         
         return this;
     }
@@ -60,6 +55,8 @@ export default class PlayerBuilder {
     }
 
     protected createPlayerInstance(): Player {
-        return new Player(this.name, this.color);
+        const color = this.palette.getRandomColorHEX();
+
+        return new Player(this.name, color);
     }
 }

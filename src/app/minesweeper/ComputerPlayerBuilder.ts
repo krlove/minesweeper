@@ -27,6 +27,6 @@ export default class ComputerPlayerBuilder extends PlayerBuilder {
     }
 
     protected createPlayerInstance(): ComputerPlayer {
-        return new ComputerPlayer(this.name, this.color);
+        return new ComputerPlayer(this.name, this.palette.getRandomColorHEX());
     }
 }
