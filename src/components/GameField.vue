@@ -39,7 +39,7 @@
                 </template>
 
                 <template v-slot:result>
-                    <div v-if="minesweeper.state === GameState.Finished" class="game-result-overlay">
+                    <div v-if="minesweeper.gameState === GameState.Finished" class="game-result-overlay">
                         <div class="title is-1 has-text-white">Game over</div>
                     </div>
                 </template>

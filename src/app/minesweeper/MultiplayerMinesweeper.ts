@@ -17,7 +17,7 @@ export default class MultiplayerMinesweeper extends Minesweeper {
         this.cellsToOpenCount = state.cellsToOpenCount;
 
         this.room.onStateChange((state) => {
-            this.state = state.gameState;
+            this.gameState = state.gameState;
         });
 
         Object.keys(state.players).forEach(key => {

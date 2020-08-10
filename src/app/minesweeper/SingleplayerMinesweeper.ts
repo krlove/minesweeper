@@ -38,7 +38,7 @@ export default class SingleplayerMinesweeper extends Minesweeper {
     }
 
     openCell(cell: Cell, player: Player, hasOpenedNeighbourCell: number = OpenedNeighbourCells.Unknown): Cell[] {
-        if (this.state !== GameState.Started && this.state !== GameState.Uninitialized) {
+        if (this.gameState !== GameState.Started && this.gameState !== GameState.Uninitialized) {
             return [];
         }
 
@@ -66,7 +66,7 @@ export default class SingleplayerMinesweeper extends Minesweeper {
     }
 
     setCellFlagged(cell: Cell, flagged: boolean, player: Player): void {
-        if (this.state !== GameState.Started) {
+        if (this.gameState !== GameState.Started) {
             return;
         }
 
@@ -86,7 +86,7 @@ export default class SingleplayerMinesweeper extends Minesweeper {
     }
 
     setState(state: GameState): void {
-        this.state = state;
+        this.gameState = state;
     }
 
     setPlayerWon(player: Player): void {

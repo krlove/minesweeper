@@ -5,7 +5,7 @@ import Player from '@/app/minesweeper/Player';
 export default abstract class Minesweeper {
     static readonly startingLocationRadius = 3;
 
-    state: GameState = GameState.Uninitialized;
+    gameState: GameState = GameState.Uninitialized;
     width: number;
     height: number;
     mines: number;
