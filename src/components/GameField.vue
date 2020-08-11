@@ -11,8 +11,14 @@
                 </div>
                 <div class="level-right level-item">
                     <div class="buttons">
-                        <button class="button is-small" v-on:click="restartGame()">Restart</button>
-                        <router-link tag="button" class="button is-small" :to="{ path: '/play' }">Quit game</router-link>
+                        <button v-if="!isMultiplayer" class="button is-small" v-on:click="restartGame()">Restart</button>
+                        <router-link
+                                tag="button"
+                                class="button is-small"
+                                :to="{ path: isMultiplayer ? '/lobby' : '/play' }"
+                        >
+                            Quit game
+                        </router-link>
                     </div>
                 </div>
             </div>
