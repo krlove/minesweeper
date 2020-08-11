@@ -25,11 +25,6 @@ export default class SingleplayerMinesweeper extends Minesweeper {
         this.setState(GameState.Initialized);
     }
 
-    addPlayer(player: Player): void {
-        player.setGame(this);
-        this.players.push(player);
-    }
-
     start(): void {
         this.setState(GameState.Started);
         for (const player of this.players) {

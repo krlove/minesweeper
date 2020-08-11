@@ -13,9 +13,8 @@ export default class Player {
     protected game: Minesweeper;
     protected openedCellsCount = 0;
 
-    constructor(name: string, color: string) {
+    constructor(name: string) {
         this.name = name;
-        this.color = color;
         this.playerState = PlayerState.Ready;
     }
 

@@ -8,7 +8,6 @@ export default class PlayerBuilder {
     protected startingCellY: number;
     protected lives: number;
     protected game: SingleplayerMinesweeper;
-    protected palette = new Palette(); // todo create addPlayer on Minesweeper and move it there
     
     static newInstance(): PlayerBuilder {
         return new PlayerBuilder();
@@ -55,8 +54,6 @@ export default class PlayerBuilder {
     }
 
     protected createPlayerInstance(): Player {
-        const color = this.palette.getRandomColorHEX();
-
-        return new Player(this.name, color);
+        return new Player(this.name);
     }
 }

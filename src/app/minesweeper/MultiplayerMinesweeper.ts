@@ -22,12 +22,11 @@ export default class MultiplayerMinesweeper extends Minesweeper {
 
         Object.keys(state.players).forEach(key => {
             const statePlayer = state.players[key];
-            const player = new Player(statePlayer.username, '#fff');
+            const player = new Player(statePlayer.username);
             player.id = statePlayer.id;
-            player.setGame(this);
             player.lives = statePlayer.lives;
             player.setOpenedCellsCount(statePlayer.openedCellsCount);
-            this.players.push(player);
+            this.addPlayer(player);
         });
 
         this.room.state.players.onChange = (statePlayer: any, key: string) => {
