@@ -1,10 +1,13 @@
+import {GameState} from "../app/minesweeper/enum";
+import {GameState} from "../app/minesweeper/enum";
+import {GameState} from "../app/minesweeper/enum";
 <template>
     <div>
         <div class="box px-6 py-6">
             <p class="title">Lobby</p>
 
             <div class="columns">
-                <div class="column is-one-third">
+                <div class="column is-two-fifths">
                     <div class="message">
                         <div class="message-header">
                             <p>Players online</p>
@@ -40,7 +43,7 @@
                                         <td>{{ match.width }}/{{ match.height }}/{{ match.mines }}/{{ match.lives }}</td>
                                         <td>{{ match.username }}</td>
                                         <td>{{ match.playersCount }} / 2</td>
-                                        <td>{{ match.gameState }}</td>
+                                        <td>{{ match | gameState }}</td>
                                         <td>
                                             <router-link
                                                     tag="button"
@@ -88,14 +91,36 @@
 
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
-    import User from '@/app/multiplayer/model/User';
-    import Message from '@/app/multiplayer/model/Message';
+    import User from "@/app/multiplayer/model/User";
+    import Message from "@/app/multiplayer/model/Message";
     import {Client, Room} from "colyseus.js";
-    import ClientStore from '@/app/multiplayer/ClientStore';
+    import ClientStore from "@/app/multiplayer/ClientStore";
     import Match from "@/app/multiplayer/model/Match";
     import {GameState} from "@/app/minesweeper/enum";
 
-    @Component
+    @Component({
+        filters: {
+            gameState(match: Match) {
+                if (match.gameState === GameState.Uninitialized) {
+                    if (match.playersCount === 1) {
+                        return 'Open';
+                    }
+
+                    return 'Full';
+                }
+
+                if (match.gameState === GameState.InProgress) {
+                    return 'In Progress';
+                }
+
+                if (match.gameState === GameState.Finished) {
+                    return 'Finished';
+                }
+
+                return '';
+            },
+        },
+    })
     export default class Lobby extends Vue {
         users: User[] = [];
         messages: Message[] = [];
