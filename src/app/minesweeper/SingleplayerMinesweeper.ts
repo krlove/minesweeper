@@ -22,18 +22,17 @@ export default class SingleplayerMinesweeper extends Minesweeper {
         this.players.map((player: Player) => {
             this.doOpenCell(player.startingCell, player, OpenedNeighbourCells.AtLeastOne)
         });
-        this.setState(GameState.Initialized);
     }
 
     start(): void {
-        this.setState(GameState.Started);
+        this.setState(GameState.InProgress);
         for (const player of this.players) {
             player.playerState = PlayerState.Playing;
         }
     }
 
     openCell(cell: Cell, player: Player, hasOpenedNeighbourCell: number = OpenedNeighbourCells.Unknown): Cell[] {
-        if (this.gameState !== GameState.Started && this.gameState !== GameState.Uninitialized) {
+        if (this.gameState !== GameState.InProgress && this.gameState !== GameState.Uninitialized) {
             return [];
         }
 
@@ -58,10 +57,12 @@ export default class SingleplayerMinesweeper extends Minesweeper {
 
             return openedCells;
         }
+
+        return [];
     }
 
     setCellFlagged(cell: Cell, flagged: boolean, player: Player): void {
-        if (this.gameState !== GameState.Started) {
+        if (this.gameState !== GameState.InProgress) {
             return;
         }
 

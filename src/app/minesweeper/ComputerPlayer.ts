@@ -58,7 +58,7 @@ export default class ComputerPlayer extends Player {
                 this.handleAction(action);
                 atLeastOneActionTaken = true;
             }
-        } while (atLeastOneActionTaken && this.game.gameState === GameState.Started && this.playerState === PlayerState.Playing);
+        } while (atLeastOneActionTaken && this.game.gameState === GameState.InProgress && this.playerState === PlayerState.Playing);
     }
 
     private handleAction(action: Action): void {

@@ -4,13 +4,13 @@ import Minesweeper from '@/app/minesweeper/Minesweeper';
 import SingleplayerMinesweeper from '@/app/minesweeper/SingleplayerMinesweeper';
 
 export default class Player {
-    id: string;
+    id!: string;
     name: string;
-    color: string;
-    startingCell: Cell;
+    color!: string;
+    startingCell!: Cell;
     playerState: PlayerState;
-    lives: number;
-    protected game: Minesweeper;
+    lives!: number;
+    protected game!: Minesweeper;
     protected openedCellsCount = 0;
 
     constructor(name: string) {

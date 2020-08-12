@@ -1,8 +1,7 @@
 export enum GameState {
     Uninitialized = 0,
-    Initialized = 1,
-    Started = 2,
-    Finished = 3,
+    InProgress = 1,
+    Finished = 2,
 }
 
 export enum PlayerState {

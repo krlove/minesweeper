@@ -129,7 +129,6 @@
                     .addPlayerBuilder(computerPlayerBuilder)
                     .create();
 
-                // todo how to do this more gracefully?
                 this.minesweeper.players.map(player => {
                     if (!(player instanceof ComputerPlayer)) {
                         this.currentPlayer = player;
@@ -142,7 +141,7 @@
 
                 // start minesweeper
                 this.minesweeper.start();
-                // todo how to do this more gracefully?
+
                 this.minesweeper.players.map(player => {
                     if (player instanceof ComputerPlayer) {
                         player.playGame();

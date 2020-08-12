@@ -2,7 +2,7 @@ import PlayerBuilder from '@/app/minesweeper/PlayerBuilder';
 import ComputerPlayer from '@/app/minesweeper/ComputerPlayer';
 
 export default class ComputerPlayerBuilder extends PlayerBuilder {
-    protected speed: number;
+    protected speed!: number;
 
     static newInstance(): ComputerPlayerBuilder {
         return new ComputerPlayerBuilder();

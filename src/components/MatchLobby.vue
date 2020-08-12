@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div v-if="gameState === GameState.Started || gameState === GameState.Finished">
+        <div v-if="gameState === GameState.InProgress || gameState === GameState.Finished">
             <game-field
                     v-bind:isMultiplayer="true"
                     v-bind:matchId="matchId"
             ></game-field>
         </div>
 
-        <div v-if="gameState !== GameState.Started" class="columns is-centered">
+        <div v-if="gameState !== GameState.InProgress" class="columns is-centered">
             <div class="column is-half">
                 <div v-if="error">
                     <span class="has-text-danger">{{ error }}</span>
@@ -164,7 +164,7 @@
         destroyed(): void {
             if (this.matchRoom) {
                 this.matchRoom.leave();
-                ClientStore.removeRoom(this.matchId);
+                ClientStore.removeRoom(this.matchRoom);
             }
         }
 

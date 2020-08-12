@@ -9,6 +9,10 @@ export default class MultiplayerMinesweeper extends Minesweeper {
     constructor(room: Room) {
         super();
         this.room = room;
+        this.initialize();
+    }
+
+    initialize(): void {
         const state = this.room.state;
         this.width = state.width;
         this.height = state.height;
@@ -76,6 +80,10 @@ export default class MultiplayerMinesweeper extends Minesweeper {
                 cell.setFlagged(stateCell.flagged);
             }
         };
+    }
+
+    start(): void {
+        // game is started on server
     }
 
     openCell(cell: Cell, player: Player, hasOpenedNeighbourCell: number): Cell[] {

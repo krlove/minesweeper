@@ -2,10 +2,10 @@ import SingleplayerMinesweeper from '@/app/minesweeper/SingleplayerMinesweeper';
 import PlayerBuilder from '@/app/minesweeper/PlayerBuilder';
 
 export default class GameBuilder {
-    private width: number;
-    private height: number;
-    private mines: number;
-    private lives: number;
+    private width!: number;
+    private height!: number;
+    private mines!: number;
+    private lives!: number;
     private minesRandomPlacement = false;
     private playerBuilders: PlayerBuilder[] = [];
 

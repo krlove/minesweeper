@@ -7,13 +7,13 @@ export default abstract class Minesweeper {
     static readonly startingLocationRadius = 3;
 
     gameState: GameState = GameState.Uninitialized;
-    width: number;
-    height: number;
-    mines: number;
-    lives: number;
+    width!: number;
+    height!: number;
+    mines!: number;
+    lives!: number;
     cells: Cell[][] = [];
     players: Player[] = [];
-    cellsToOpenCount: number;
+    cellsToOpenCount!: number;
 
     protected palette = new Palette();
 
@@ -25,6 +25,9 @@ export default abstract class Minesweeper {
 
     abstract setCellFlagged(cell: Cell, flagged: boolean, player: Player): void
 
+    abstract initialize(): void;
+
+    abstract start(): void;
 
     addPlayer(player: Player): void {
         player.setGame(this);

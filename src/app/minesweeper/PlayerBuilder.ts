@@ -3,11 +3,11 @@ import SingleplayerMinesweeper from '@/app/minesweeper/SingleplayerMinesweeper';
 import Palette from '@/app/util/Palette';
 
 export default class PlayerBuilder {
-    protected name: string;
-    protected startingCellX: number;
-    protected startingCellY: number;
-    protected lives: number;
-    protected game: SingleplayerMinesweeper;
+    protected name!: string;
+    protected startingCellX!: number;
+    protected startingCellY!: number;
+    protected lives!: number;
+    protected game!: SingleplayerMinesweeper;
     
     static newInstance(): PlayerBuilder {
         return new PlayerBuilder();

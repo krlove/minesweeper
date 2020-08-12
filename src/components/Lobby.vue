@@ -25,18 +25,33 @@
                                 <router-link tag="button" class="button is-small" :to="{ path: '/match/new' }">Create match</router-link>
                             </div>
                             <div class="my-3">
-                                <div v-for="match of matches" v-bind:key="match.roomId">
-                                    <div class="level">
-                                        <div class="level-left">
-                                            <span class="level-item">
-                                                {{ match.width }}/{{ match.height }}/{{ match.mines }}/{{ match.lives }} by {{ match.username }}
-                                            </span>
-                                        </div>
-                                        <div class="level-right">
-                                            <router-link tag="button" class="button is-small" :to="{ path: `/match/${match.roomId}` }">Join</router-link>
-                                        </div>
-                                    </div>
-                                </div>
+                                <table class="table is-fullwidth">
+                                    <thead>
+                                    <tr>
+                                        <th>Match</th>
+                                        <th>Creator</th>
+                                        <th>Players</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="match of matches" v-bind:key="match.roomId">
+                                        <td>{{ match.width }}/{{ match.height }}/{{ match.mines }}/{{ match.lives }}</td>
+                                        <td>{{ match.username }}</td>
+                                        <td>{{ match.playersCount }} / 2</td>
+                                        <td>
+                                            <router-link
+                                                    tag="button"
+                                                    class="button is-small"
+                                                    :to="{ path: `/match/${match.roomId}` }"
+                                                    :disabled="match.playersCount === 2"
+                                            >
+                                                Join
+                                            </router-link>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -105,14 +120,16 @@
                 self.users.splice(index, 1);
             };
 
-            this.lobbyRoom.state.matches.onAdd = function (stateGame: any, id: string) {
+            this.lobbyRoom.state.matches.onAdd = function (stateMatch: any) {
                 const match = new Match();
-                match.roomId = stateGame.roomId;
-                match.username = stateGame.username;
-                match.width = stateGame.width;
-                match.height = stateGame.height;
-                match.mines = stateGame.mines;
-                match.lives = stateGame.lives;
+                match.roomId = stateMatch.roomId;
+                match.username = stateMatch.username;
+                match.width = stateMatch.width;
+                match.height = stateMatch.height;
+                match.mines = stateMatch.mines;
+                match.lives = stateMatch.lives;
+                match.playersCount = stateMatch.playersCount;
+                match.gameState = stateMatch.gameState;
 
                 self.matches.push(match);
             };

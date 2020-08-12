@@ -6,7 +6,7 @@ export default class Cell {
     public x: number;
     public y: number;
     public neighbourMinesCount = 0;
-    public openedBy: Player;
+    public openedBy!: Player;
     private hasMine = false;
     private game: Minesweeper;
     private opened = false;
