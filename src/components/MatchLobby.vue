@@ -1,20 +1,24 @@
 <template>
     <div>
-        <div v-if="gameState === GameState.InProgress || gameState === GameState.Finished">
+        <div v-if="error">
+            <div class="notification is-warning">
+                {{ error }}
+            </div>
+
+            <router-link tag="button" class="button" :to="{ path: '/lobby' }">Go to Lobby</router-link>
+        </div>
+
+        <div v-if="!error && (gameState === GameState.InProgress || gameState === GameState.Finished)">
             <game-field
                     v-bind:isMultiplayer="true"
                     v-bind:matchId="matchId"
             ></game-field>
         </div>
 
-        <div v-if="gameState !== GameState.InProgress" class="columns is-centered">
+        <div v-if="!error && gameState === GameState.Uninitialized" class="columns is-centered">
             <div class="column is-half">
-                <div v-if="error">
-                    <span class="has-text-danger">{{ error }}</span>
-                </div>
-
                 <div class="box px-6 py-6" v-if="matchRoom">
-                    <div v-if="gameState === GameState.Uninitialized" class="mb-5">
+                    <div class="mb-5">
                         <div class="columns">
                             <div class="column is-5 has-text-centered">
                                 <span class="title is-5" v-if="users[0] !== undefined">{{ users[0].username }}</span>
@@ -149,6 +153,10 @@
                 const msg = new Message(author, body, createdAt);
 
                 self.messages.push(msg);
+            });
+
+            this.matchRoom.onLeave(() => {
+                this.error = 'Game host has left';
             });
         }
 
