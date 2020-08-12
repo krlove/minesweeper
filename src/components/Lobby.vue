@@ -31,6 +31,7 @@
                                         <th>Match</th>
                                         <th>Creator</th>
                                         <th>Players</th>
+                                        <th>State</th>
                                         <th></th>
                                     </tr>
                                     </thead>
@@ -39,12 +40,13 @@
                                         <td>{{ match.width }}/{{ match.height }}/{{ match.mines }}/{{ match.lives }}</td>
                                         <td>{{ match.username }}</td>
                                         <td>{{ match.playersCount }} / 2</td>
+                                        <td>{{ match.gameState }}</td>
                                         <td>
                                             <router-link
                                                     tag="button"
                                                     class="button is-small"
                                                     :to="{ path: `/match/${match.roomId}` }"
-                                                    :disabled="match.playersCount === 2"
+                                                    :disabled="match.playersCount === 2 || match.gameState !== GameState.Uninitialized"
                                             >
                                                 Join
                                             </router-link>
@@ -91,6 +93,7 @@
     import {Client, Room} from "colyseus.js";
     import ClientStore from '@/app/multiplayer/ClientStore';
     import Match from "@/app/multiplayer/model/Match";
+    import {GameState} from "@/app/minesweeper/enum";
 
     @Component
     export default class Lobby extends Vue {
@@ -99,8 +102,9 @@
         matches: Match[] = [];
         message = '';
 
-        private client: Client;
-        private lobbyRoom: Room;
+        GameState = GameState;
+        private client!: Client;
+        private lobbyRoom!: Room;
 
         async created(): void {
             const self = this;
@@ -115,12 +119,12 @@
                 self.users.push(user);
             };
 
-            this.lobbyRoom.state.users.onRemove = function (stateUser: any, id: string) {
+            this.lobbyRoom.state.users.onRemove = (stateUser: any, id: string) => {
                 const index = self.users.findIndex(user => user.id === id);
                 self.users.splice(index, 1);
             };
 
-            this.lobbyRoom.state.matches.onAdd = function (stateMatch: any) {
+            this.lobbyRoom.state.matches.onAdd = (stateMatch: any) => {
                 const match = new Match();
                 match.roomId = stateMatch.roomId;
                 match.username = stateMatch.username;
@@ -134,9 +138,22 @@
                 self.matches.push(match);
             };
 
-            this.lobbyRoom.state.matches.onRemove = function (stateGame: any, id: string) {
-                const index = self.matches.findIndex(game => game.roomId === stateGame.roomId);
+            this.lobbyRoom.state.matches.onRemove = function (stateMatch: any) {
+                const index = self.matches.findIndex(game => game.roomId === stateMatch.roomId);
                 self.matches.splice(index, 1);
+            };
+
+            this.lobbyRoom.state.matches.onChange = (stateMatch: any) => {
+                const index = self.matches.findIndex(game => game.roomId === stateMatch.roomId);
+                const match = self.matches[index];
+                match.roomId = stateMatch.roomId;
+                match.username = stateMatch.username;
+                match.width = stateMatch.width;
+                match.height = stateMatch.height;
+                match.mines = stateMatch.mines;
+                match.lives = stateMatch.lives;
+                match.playersCount = stateMatch.playersCount;
+                match.gameState = stateMatch.gameState;
             };
 
             this.lobbyRoom.onStateChange((state) => {
