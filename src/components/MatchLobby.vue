@@ -93,7 +93,7 @@
     })
     export default class MatchLobby extends Vue {
         @Prop() matchId!: string;
-        matchRoom!: Room = null;
+        matchRoom!: Room;
         error = '';
         message = '';
         messages: Message[] = [];

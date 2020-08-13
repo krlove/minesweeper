@@ -169,29 +169,29 @@
         speed = 0;
         lives = 0;
 
-        private modes = {
-            [Mode.Beginner]: {
+        private modes = [
+            {
                 width: 30,
                 height: 20,
                 mines: 110,
                 speed: 2,
                 lives: 2,
             } as GameConfig,
-            [Mode.Intermediate]: {
+            {
                 width: 40,
                 height: 25,
                 mines: 230,
                 speed: 5,
                 lives: 3,
             } as GameConfig,
-            [Mode.Expert]: {
+            {
                 width: 50,
                 height: 30,
                 mines: 340,
                 speed: 8,
                 lives: 4,
             } as GameConfig,
-        };
+        ];
 
         created(): void {
             this.setMode(Mode.Beginner);
@@ -201,7 +201,7 @@
             this.mode = mode;
 
             if (mode in this.modes) {
-                const modeConfig = this.modes[mode];
+                const modeConfig = this.modes[mode as Mode];
                 this.width = modeConfig.width;
                 this.height = modeConfig.height;
                 this.mines = modeConfig.mines;

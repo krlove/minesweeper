@@ -131,7 +131,7 @@ import {GameState} from "../app/minesweeper/enum";
         private client!: Client;
         private lobbyRoom!: Room;
 
-        async created(): void {
+        async created(): Promise<void> {
             const self = this;
 
             self.client = ClientStore.getClient();
