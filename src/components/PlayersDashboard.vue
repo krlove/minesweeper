@@ -31,9 +31,9 @@
         components: {Lives}
     })
     export default class PlayersDashboard extends Vue {
-        @Prop() players: Player[];
-        @Prop() cellsToOpenCount: number;
-        @Prop() playerLivesCount: number;
+        @Prop() players!: Player[];
+        @Prop() cellsToOpenCount!: number;
+        @Prop() playerLivesCount!: number;
         PlayerState = PlayerState;
     }
 </script>

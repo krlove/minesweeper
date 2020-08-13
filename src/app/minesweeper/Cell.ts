@@ -64,15 +64,4 @@ export default class Cell {
     explode(): void {
         this.exploded = true;
     }
-
-    getFlaggedOrExplodedNeighbourCellsCount(): number {
-        let count = 0;
-        for (const neighbourCell of this.game.iterateNeighbours(this)) {
-            if (neighbourCell.isFlagged() || neighbourCell.isExploded()) {
-                count++;
-            }
-        }
-
-        return count;
-    }
 }

@@ -40,11 +40,11 @@
 
     @Component
     export default class CellSquare extends Vue {
-        @Prop() public cell: Cell;
+        @Prop() public cell!: Cell;
 
         readonly CELL_SIZE_PX = 30;
         readonly CELL_CLICK_THRESHOLD_MILLISECONDS = 200;
-        private lastMouseDownTimestamp: number;
+        private lastMouseDownTimestamp!: number;
 
         get cellStyle(): any {
             const style = {

@@ -37,11 +37,11 @@ const routes: Array<RouteConfig> = [
         component: GameField,
         props: function($route) {
             const query = $route.query;
-            let width = query.width ? parseInt(query.width) : 30;
-            let height = query.height ? parseInt(query.height) : 20;
-            let mines = query.mines ? parseInt(query.mines) : 120;
-            let speed = query.speed ? parseInt(query.speed) : 2;
-            let lives = query.lives ? parseInt(query.lives) : 2;
+            let width = query.width ? parseInt(query.width.toString()) : 30;
+            let height = query.height ? parseInt(query.height.toString()) : 20;
+            let mines = query.mines ? parseInt(query.mines.toString()) : 120;
+            let speed = query.speed ? parseInt(query.speed.toString()) : 2;
+            let lives = query.lives ? parseInt(query.lives.toString()) : 2;
 
             width = Math.max(20, Math.min(60, width));
             height = Math.max(10, Math.min(40, height));

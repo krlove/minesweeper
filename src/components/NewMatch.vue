@@ -23,7 +23,7 @@
         components: {GameOptions}
     })
     export default class NewMatch extends Vue {
-        async onPlayClick(gameConfig: GameConfig): void {
+        async onPlayClick(gameConfig: GameConfig): Promise<void> {
             const username = localStorage.getItem('username');
 
             const client = ClientStore.getClient();

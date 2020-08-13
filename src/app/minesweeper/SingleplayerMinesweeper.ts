@@ -45,7 +45,7 @@ export default class SingleplayerMinesweeper extends Minesweeper {
         }
 
         if (cell.isOpened() && cell.neighbourMinesCount > 0 && !cell.isExploded()) {
-            const flaggedOrExplodedNeighbourCellsCount = cell.getFlaggedOrExplodedNeighbourCellsCount();
+            const flaggedOrExplodedNeighbourCellsCount = this.getFlaggedOrExplodedNeighbourCellsCount(cell);
             if (flaggedOrExplodedNeighbourCellsCount !== cell.neighbourMinesCount) {
                 return [];
             }
@@ -228,5 +228,16 @@ export default class SingleplayerMinesweeper extends Minesweeper {
         }
 
         return false;
+    }
+
+    getFlaggedOrExplodedNeighbourCellsCount(cell: Cell): number {
+        let count = 0;
+        for (const neighbourCell of this.iterateNeighbours(cell)) {
+            if (neighbourCell.isFlagged() || neighbourCell.isExploded()) {
+                count++;
+            }
+        }
+
+        return count;
     }
 }

@@ -21,10 +21,10 @@
 
     @Component
     export default class Lives extends Vue {
-        @Prop() total: number;
-        @Prop() selectable: boolean;
-        @Prop() value: number;
-        @Prop() disabled: boolean;
+        @Prop() total!: number;
+        @Prop() selectable!: boolean;
+        @Prop() value!: number;
+        @Prop() disabled!: boolean;
 
         get range(): number[] {
             return range(1, this.total);

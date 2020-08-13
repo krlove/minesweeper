@@ -23,10 +23,10 @@
 
     @Component
     export default class Camera extends Vue {
-        @Prop() sceneWidth: number;
-        @Prop() sceneHeight: number;
+        @Prop() sceneWidth!: number;
+        @Prop() sceneHeight!: number;
 
-        cameraWidth: number;
+        cameraWidth!: number;
         cameraHeight = 600;
 
         private sceneLeftPosition = 0;
@@ -34,8 +34,8 @@
         private horizontalScrollEnabled = true;
         private verticalScrollEnabled = true;
         private locked = false;
-        private prevX: number;
-        private prevY: number;
+        private prevX!: number;
+        private prevY!: number;
 
         mounted(): void {
             const rect = this.$el.getBoundingClientRect();

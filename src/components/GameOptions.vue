@@ -158,8 +158,8 @@
         components: {Lives}
     })
     export default class GameOptions extends Vue {
-        @Prop() vsComputer: boolean;
-        @Prop() onPlayClick: (gameConfig: GameConfig) => void;
+        @Prop() vsComputer!: boolean;
+        @Prop() onPlayClick!: (gameConfig: GameConfig) => void;
 
         Mode = Mode;
         mode = Mode.Beginner;

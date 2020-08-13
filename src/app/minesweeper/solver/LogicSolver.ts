@@ -1,7 +1,7 @@
 import Cell from "@/app/minesweeper/Cell";
 import {combinations} from "@/app/util/k_combinations";
 import SingleplayerMinesweeper from "@/app/minesweeper/SingleplayerMinesweeper";
-import * as logic from "logicjs/logic";
+const logic = require("logicjs/logic");
 import Action from "@/app/minesweeper/solver/Action";
 import ComputerPlayer from '@/app/minesweeper/ComputerPlayer';
 
@@ -60,7 +60,7 @@ export default class LogicSolver {
             const ruleArgs = [];
 
             for (const cell of segregated) {
-                const closedNeighbourLVars = [];
+                const closedNeighbourLVars: any[] = [];
                 let flaggedOrExplodedNeighbourCellsCount = 0;
                 for (const neighbourCell of this.game.iterateNeighbours(cell)) {
                     if (this.internalFlags[neighbourCell.x][neighbourCell.y] || neighbourCell.isExploded()) {
@@ -89,7 +89,7 @@ export default class LogicSolver {
 
                 const orArgs = [];
                 for (const comb of combs) {
-                    const andArgs = [];
+                    const andArgs: any[] = [];
                     comb.forEach((isFlagged, index) => {
                         andArgs.push(eq(closedNeighbourLVars[index], isFlagged));
                     });

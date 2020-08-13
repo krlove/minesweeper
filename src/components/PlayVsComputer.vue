@@ -26,11 +26,11 @@
             this.$router.push({
                 path: '/computer',
                 query: {
-                    width: gameConfig.width,
-                    height: gameConfig.height,
-                    mines: gameConfig.mines,
-                    speed: gameConfig.speed,
-                    lives: gameConfig.lives,
+                    width: gameConfig.width.toString(),
+                    height: gameConfig.height.toString(),
+                    mines: gameConfig.mines.toString(),
+                    speed: gameConfig.speed.toString(),
+                    lives: gameConfig.lives.toString(),
                 },
             });
         }

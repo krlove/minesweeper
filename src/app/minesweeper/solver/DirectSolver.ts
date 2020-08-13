@@ -7,7 +7,7 @@ import ComputerPlayer from '@/app/minesweeper/ComputerPlayer';
 export default class DirectSolver {
     private game: SingleplayerMinesweeper;
     private player: ComputerPlayer;
-    private cellsToAnalyze: DoublyLinkedList<Cell>;
+    private cellsToAnalyze!: DoublyLinkedList<Cell>;
     private internalFlags: boolean[][];
 
     constructor(game: SingleplayerMinesweeper, player: ComputerPlayer) {

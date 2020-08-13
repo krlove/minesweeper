@@ -8,11 +8,12 @@ import {sleep} from '@/app/util/time';
 import Cell from '@/app/minesweeper/cell';
 
 export default class ComputerPlayer extends Player {
-    private speed: number;
-    private directSolver: DirectSolver;
-    private logicSolver: LogicSolver;
-    private moveTimeMs: number;
-    private internalFlags: boolean[][];
+    protected game!: SingleplayerMinesweeper;
+    private speed!: number;
+    private directSolver!: DirectSolver;
+    private logicSolver!: LogicSolver;
+    private moveTimeMs!: number;
+    private internalFlags!: boolean[][];
 
     setGame(game: SingleplayerMinesweeper): void {
         super.setGame(game);

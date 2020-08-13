@@ -74,17 +74,17 @@
         components: {PlayersDashboard, Camera, CellSquare}
     })
     export default class GameField extends Vue {
-        @Prop() width: number;
-        @Prop() height: number;
-        @Prop() mines: number;
-        @Prop() speed: number;
-        @Prop() lives: number;
-        @Prop() isMultiplayer: boolean;
-        @Prop() matchId: string;
+        @Prop() width!: number;
+        @Prop() height!: number;
+        @Prop() mines!: number;
+        @Prop() speed!: number;
+        @Prop() lives!: number;
+        @Prop() isMultiplayer!: boolean;
+        @Prop() matchId!: string;
 
         cells: Cell[][] = [];
-        private minesweeper: Minesweeper;
-        private currentPlayer: Player;
+        private minesweeper!: Minesweeper;
+        private currentPlayer!: Player;
         private GameState = GameState;
         private PlayerState = PlayerState;
         private sceneWidth = 0;

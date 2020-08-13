@@ -92,8 +92,8 @@
         components: {GameField}
     })
     export default class MatchLobby extends Vue {
-        @Prop() matchId;
-        matchRoom: Room = null;
+        @Prop() matchId!: string;
+        matchRoom!: Room = null;
         error = '';
         message = '';
         messages: Message[] = [];
