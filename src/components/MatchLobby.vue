@@ -17,7 +17,7 @@
 
         <div v-if="!error && gameState === GameState.Uninitialized" class="columns is-centered">
             <div class="column is-half">
-                <div class="box px-6 py-6" v-if="matchRoom">
+                <div class="box px-6 py-6" v-if="connectedToRoom">
                     <div class="mb-5">
                         <div class="columns">
                             <div class="column is-5 has-text-centered">
@@ -93,7 +93,8 @@
     })
     export default class MatchLobby extends Vue {
         @Prop() matchId!: string;
-        matchRoom!: Room;
+        matchRoom?: Room;
+        connectedToRoom = false;
         error = '';
         message = '';
         messages: Message[] = [];
@@ -114,6 +115,7 @@
                     matchRoom = await client.joinById(this.matchId, { username });
                     ClientStore.addRoom(matchRoom);
                 } catch (e) {
+                    console.log(e);
                     // be silent
                 }
             }
@@ -123,6 +125,7 @@
                 return;
             }
 
+            this.connectedToRoom = true;
             this.matchRoom = matchRoom;
             this.matchRoom.onStateChange((state) => {
                 this.width = state.width;
