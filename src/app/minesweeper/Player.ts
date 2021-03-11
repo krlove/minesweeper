@@ -4,7 +4,6 @@ import Minesweeper from '@/app/minesweeper/Minesweeper';
 import SingleplayerMinesweeper from '@/app/minesweeper/SingleplayerMinesweeper';
 
 export default class Player {
-    id!: string;
     name: string;
     color!: string;
     startingCell!: Cell;
@@ -24,15 +23,6 @@ export default class Player {
 
     setStartingCell(cell: Cell): void {
         this.startingCell = cell;
-    }
-
-    setOpenedCellsCount(cellsOpened: number): void {
-        this.openedCellsCount = cellsOpened;
-        if (this.game instanceof SingleplayerMinesweeper) {
-            if (this.game.cellsToOpenCount === this.openedCellsCount) {
-                this.game.setPlayerWon(this);
-            }
-        }
     }
 
     incOpenedCellsCount(cellsOpened = 1): void {

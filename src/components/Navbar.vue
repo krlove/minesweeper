@@ -11,9 +11,6 @@
                     <router-link tag="a" to="/play" class="navbar-item" active-class="is-active">
                         Play vs computer
                     </router-link>
-                    <router-link tag="a" to="/lobby" class="navbar-item" active-class="is-active">
-                        Multiplayer
-                    </router-link>
                     <router-link tag="a" to="/rules" class="navbar-item" active-class="is-active">
                         Rules
                     </router-link>

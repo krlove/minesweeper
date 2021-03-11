@@ -11,11 +11,11 @@
                 </div>
                 <div class="level-right level-item">
                     <div class="buttons">
-                        <button v-if="!isMultiplayer" class="button is-small" v-on:click="restartGame()">Restart</button>
+                        <button class="button is-small" v-on:click="restartGame()">Restart</button>
                         <router-link
                                 tag="button"
                                 class="button is-small"
-                                :to="{ path: isMultiplayer ? '/lobby' : '/play' }"
+                                :to="{ path: '/play' }"
                         >
                             Quit game
                         </router-link>
@@ -60,14 +60,12 @@
     import CellSquare from "@/components/CellSquare.vue";
     import Camera from "@/components/Camera.vue";
     import Player from "@/app/minesweeper/Player";
-    import {GameState, OpenedNeighbourCells, PlayerState} from "@/app/minesweeper/enum";
+    import {OpenedNeighbourCells, GameState} from "@/app/minesweeper/enum";
     import PlayersDashboard from "@/components/PlayersDashboard.vue";
     import GameBuilder from "@/app/minesweeper/GameBuilder";
     import PlayerBuilder from "@/app/minesweeper/PlayerBuilder";
     import ComputerPlayerBuilder from "@/app/minesweeper/ComputerPlayerBuilder";
     import ComputerPlayer from "@/app/minesweeper/ComputerPlayer";
-    import ClientStore from "@/app/multiplayer/ClientStore";
-    import MultiplayerMinesweeper from "@/app/minesweeper/MultiplayerMinesweeper";
     import Minesweeper from "@/app/minesweeper/Minesweeper";
 
     @Component({
@@ -79,16 +77,14 @@
         @Prop() mines!: number;
         @Prop() speed!: number;
         @Prop() lives!: number;
-        @Prop() isMultiplayer!: boolean;
-        @Prop() matchId!: string;
 
         cells: Cell[][] = [];
         private minesweeper!: Minesweeper;
         private currentPlayer!: Player;
-        private GameState = GameState;
-        private PlayerState = PlayerState;
         private sceneWidth = 0;
         private sceneHeight = 0;
+
+        private GameState = GameState;
 
         created() {
             if (this.width) {
@@ -102,62 +98,50 @@
         }
 
         startGame(): void {
-            if (!this.isMultiplayer) {
-                const humanPlayerBuilder = PlayerBuilder
-                    .newInstance()
-                    .setName('You')
-                    .setStartingCellX(0)
-                    .setStartingCellY(0)
-                    .setLives(this.lives);
+            const humanPlayerBuilder = PlayerBuilder
+                .newInstance()
+                .setName('You')
+                .setStartingCellX(0)
+                .setStartingCellY(0)
+                .setLives(this.lives);
 
-                const computerPlayerBuilder = ComputerPlayerBuilder
-                    .newInstance()
-                    .setName('Computer')
-                    .setStartingCellX(this.width - 1)
-                    .setStartingCellY(this.height - 1)
-                    .setLives(this.lives)
-                    .setSpeed(this.speed);
+            const computerPlayerBuilder = ComputerPlayerBuilder
+                .newInstance()
+                .setName('Computer')
+                .setStartingCellX(this.width - 1)
+                .setStartingCellY(this.height - 1)
+                .setLives(this.lives)
+                .setSpeed(this.speed);
 
-                this.minesweeper = GameBuilder
-                    .newInstance()
-                    .setWidth(this.width)
-                    .setHeight(this.height)
-                    .setMinesRandomPlacement(true)
-                    .setMines(this.mines)
-                    .setLives(this.lives)
-                    .addPlayerBuilder(humanPlayerBuilder)
-                    .addPlayerBuilder(computerPlayerBuilder)
-                    .create();
+            this.minesweeper = GameBuilder
+                .newInstance()
+                .setWidth(this.width)
+                .setHeight(this.height)
+                .setMinesRandomPlacement(true)
+                .setMines(this.mines)
+                .setLives(this.lives)
+                .addPlayerBuilder(humanPlayerBuilder)
+                .addPlayerBuilder(computerPlayerBuilder)
+                .create();
 
-                this.minesweeper.players.map(player => {
-                    if (!(player instanceof ComputerPlayer)) {
-                        this.currentPlayer = player;
-                    }
-                });
-
-                // init minesweeper
-                this.minesweeper.initialize();
-                this.cells = this.minesweeper.cells;
-
-                // start minesweeper
-                this.minesweeper.start();
-
-                this.minesweeper.players.map(player => {
-                    if (player instanceof ComputerPlayer) {
-                        player.playGame();
-                    }
-                });
-            } else {
-                const matchRoom = ClientStore.getRoom(this.matchId);
-                if (!matchRoom) {
-                    throw new Error('Match not found');
+            this.minesweeper.players.map(player => {
+                if (!(player instanceof ComputerPlayer)) {
+                    this.currentPlayer = player;
                 }
+            });
 
-                this.minesweeper = new MultiplayerMinesweeper(matchRoom);
-                this.cells = this.minesweeper.cells;
-                this.sceneWidth = this.minesweeper.width * 30;
-                this.sceneHeight = this.minesweeper.height * 30;
-            }
+            // init minesweeper
+            this.minesweeper.initialize();
+            this.cells = this.minesweeper.cells;
+
+            // start minesweeper
+            this.minesweeper.start();
+
+            this.minesweeper.players.map(player => {
+                if (player instanceof ComputerPlayer) {
+                    player.playGame();
+                }
+            });
         }
 
         restartGame(): void {
