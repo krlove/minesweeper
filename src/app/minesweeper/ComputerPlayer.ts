@@ -5,7 +5,7 @@ import LogicSolver from '@/app/minesweeper/solver/LogicSolver';
 import Action, {ActionType} from '@/app/minesweeper/solver/Action';
 import {GameState, OpenedNeighbourCells, PlayerState} from '@/app/minesweeper/enum';
 import {sleep} from '@/app/util/time';
-import Cell from '@/app/minesweeper/cell';
+import Cell from '@/app/minesweeper/Cell';
 
 export default class ComputerPlayer extends Player {
     protected game!: SingleplayerMinesweeper;
