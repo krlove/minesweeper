@@ -1,24 +1,12 @@
-# proto
+# Minesweeper Battle
 
-## Project setup
-```
-yarn install
-```
+[Play game](https://minesweeper-battle.onrender.com/)
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+![Gameplay](gameplay.png)
 
-### Compiles and minifies for production
-```
-yarn build
-```
+### Implementation
 
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Computer engine implemented using [LogicJS](https://github.com/mcsoto/LogicJS) library.
+Read more:
+* [Algorithms and data structures behind Minesweeper Battle](https://dev.to/krlove/algorithms-and-data-structures-behind-minesweeper-battle-1a70)
+* [Creating advanced Minesweeper solver using logic programming](https://dev.to/krlove/creating-advanced-minesweeper-solver-using-logic-programming-2ppd)
